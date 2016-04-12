@@ -5,15 +5,17 @@
 
 ### 框架使用
 
->在Application中调用onCreate()方法中调用FastFrame.init(this)进行初始化;
->FastFrame.setDebug(true);将开启调试功能，打印网络请求日志，打印错误日志。
+> 在Application中调用onCreate()方法中调用FastFrame.init(this)进行初始化;
+> FastFrame.setDebug(true);将开启调试功能，打印网络请求日志，打印错误日志。
 
 
 ### 更新说明
->[V1.0.1]() 
-- Activity管理(ActivityStack) - 打造BaseActivity(Activity基类，所有的Activity集成BaseActivity) 
+>[V1.0.1](https://github.com/FanlySff/FastLib) 
+- Activity管理(ActivityStack) 
+- 打造BaseActivity(Activity基类，所有的Activity集成BaseActivity) 
 - 工具类积累(LogUtils，DetaUtils，NetUtils...) 
-- ListView的万能适配器(BaseListAdapter) - RecyclerView的万能适配器(BaseRecyclerAdapter) 
+- ListView的万能适配器(BaseListAdapter) 
+- RecyclerView的万能适配器(BaseRecyclerAdapter) 
 - BackTools双击退出应用(在Activity的onBackPressed方法中调用该方法的onBackPressed) 
 - CrashHandler默认的崩溃处理器
  1. 支持上传到服务器

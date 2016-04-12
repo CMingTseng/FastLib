@@ -352,6 +352,19 @@ public final class FileUtils {
     }
 
     /**
+     * 说明：删除指定文件
+     * @param file
+     * @return
+     */
+    public static boolean delete(File file){
+        boolean flag = true;
+        if (file != null && file.exists()){
+            flag = file.delete();
+        }
+        return flag;
+    }
+
+    /**
      * 说明：删除指定文件夹下所有文件
      *
      * @param file
@@ -388,17 +401,34 @@ public final class FileUtils {
 
     /**
      * 说明：创建文件夹
-     * @param folder
+     * @param directory
+     * @return  true创建成功
      */
-    public static File makeFolders(String folder){
-        File file = null;
-        if (!StringUtils.isEmpty(folder)){
-            file = new File(folder);
-            if (!file.exists()){
-                file.mkdirs();
+    public static boolean mkdirs(File directory){
+        try {
+            forceMkdir(directory);
+            return true;
+        }catch (IOException e){
+            LogUtils.e(e);
+            return false;
+        }
+    }
+
+    private static void forceMkdir(File directory) throws IOException{
+        if (directory == null){
+            throw new IOException("message = "+ " directory is null !");
+        }
+        if (directory.exists()){
+            if (!directory.isDirectory()){
+                throw new IOException("message = "+directory+" exists and is not a directory!");
+            }
+        }else {
+            if (!directory.mkdirs()){
+                if (!directory.isDirectory()){
+                    throw new IOException("Unable to create directory "+directory);
+                }
             }
         }
-        return file;
     }
 
     /**

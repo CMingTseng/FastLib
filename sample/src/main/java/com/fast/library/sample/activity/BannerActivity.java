@@ -12,7 +12,8 @@ import com.fast.library.ui.ContentView;
 import com.fast.library.ui.Toast;
 import com.fast.library.utils.UIUtils;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -36,14 +37,16 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
 
     private long time = 2000;
 
-    private List<String> data;
+    private List<String> data = new ArrayList<>();
+    private String []urls;
 
     @Override
     public void onInit(Bundle bundle) {
         super.onInit(bundle);
         ButterKnife.bind(this);
 
-        data = Arrays.asList(UIUtils.getStringArray(R.array.banner_three));
+        urls = UIUtils.getStringArray(R.array.banner_three);
+        Collections.addAll(data, urls);
         bannerView.setPages(new BannerHolderCreator() {
             @Override
             public Object createHolder() {
@@ -64,12 +67,14 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
                 bannerView.stop();
                 break;
             case R.id.btn_add:
-                if (data.size() <= 1){
-                    data.clear();
-                    data.addAll(Arrays.asList(UIUtils.getStringArray(R.array.banner_three)));
+                int size = data.size();
+                data.clear();
+                if (size <= 1){
+                    urls = UIUtils.getStringArray(R.array.banner_three);
+                    Collections.addAll(data, urls);
                 }else {
-                    data.clear();
-                    data.addAll(Arrays.asList(UIUtils.getStringArray(R.array.banner_one)));
+                    urls = UIUtils.getStringArray(R.array.banner_one);
+                    Collections.addAll(data,urls);
                 }
                 bannerView.refresh();
                 break;

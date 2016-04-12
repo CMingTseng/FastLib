@@ -74,6 +74,9 @@ public class MainActivity extends CommonActivity implements BaseRecyclerAdapter.
             case 0:
                 showActivity(BannerActivity.class);
                 break;
+            case 1:
+                showActivity(HttpActivity.class);
+                break;
             default:
                 shortToast(datas.get(position));
                 break;

@@ -1,14 +1,15 @@
 package com.fast.library;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.fast.library.http.HttpConfig;
 import com.fast.library.http.HttpRequest;
 import com.fast.library.http.RequestParams;
 import com.fast.library.http.callback.BaseHttpCallBack;
-import com.fast.library.http.download.DownLoadListener;
-import com.fast.library.http.download.DownloadManager;
+import com.fast.library.http.callback.DownloadCallBack;
+import com.fast.library.http.download.FileDownloadTask;
+
+import java.io.File;
 
 
 /**
@@ -53,7 +54,7 @@ public class HttpUtils {
      * @param callBack
      */
     public static void post(String url,BaseHttpCallBack callBack){
-        HttpRequest.post(url,callBack);
+        HttpRequest.post(url, callBack);
     }
 
     /**
@@ -63,7 +64,7 @@ public class HttpUtils {
      * @param callBack
      */
     public static void post(String url,RequestParams params,BaseHttpCallBack callBack){
-        HttpRequest.post(url,params,callBack);
+        HttpRequest.post(url, params, callBack);
     }
 
     /**
@@ -247,21 +248,6 @@ public class HttpUtils {
     }
 
     /**
-     * 说明：下载文件
-     * @param path
-     * @param name
-     * @param url
-     * @param listener
-     */
-    public static void download(Context context,String path,String name,String url,DownLoadListener listener){
-        if (!TextUtils.isEmpty(url)){
-            if (!DownloadManager.getInstance(context).hasTask(url)){
-                DownloadManager.getInstance(context).setFolder(path).setFileName(name).addTask(url,listener);
-            }
-        }
-    }
-
-    /**
      * 说明：取消一个请求
      * @param url
      */
@@ -279,39 +265,35 @@ public class HttpUtils {
 
     /**
      * 说明：下载文件
-     *       默认路径SD/应用名/download/
-     * @param context
      * @param url
-     * @param listener
+     * @param dir
+     * @param name
+     * @param callBack
      */
-    public static void download(Context context,String url,DownLoadListener listener){
-        download(context, "", "", url, listener);
+    public static void download(String url,String dir,String name,DownloadCallBack callBack){
+        File file = new File(dir,name);
+        download(url,file,callBack);
     }
 
     /**
-     * 说明：暂停下载任务
+     * 说明：下载文件
      * @param url
+     * @param target
      */
-    public static void stopTask(Context context,String url){
-        if (TextUtils.isEmpty(url)){
-            return;
-        }
-        if (DownloadManager.getInstance(context).hasTask(url)){
-            DownloadManager.getInstance(context).stopTask(url);
-        }
+    public static void download(String url,File target){
+        download(url, target, null);
     }
 
     /**
-     * 说明：继续下载文件
-     * @param context
+     * 说明：下载文件
      * @param url
+     * @param target
+     * @param callBack
      */
-    public static void restartTask(Context context,String url){
-        if (TextUtils.isEmpty(url)){
-            return;
-        }
-        if (DownloadManager.getInstance(context).hasTask(url)){
-            DownloadManager.getInstance(context).restartTask(url);
+    public static void download(String url,File target,DownloadCallBack callBack){
+        if (!TextUtils.isEmpty(url) || target != null){
+            FileDownloadTask task = new FileDownloadTask(url,target,callBack);
+            task.execute();
         }
     }
 
