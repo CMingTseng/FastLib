@@ -2,10 +2,10 @@ package com.fast.library.http.download;
 
 import android.content.Context;
 
-import com.fast.dev.frame.utils.Constant;
-import com.fast.dev.frame.utils.FileUtils;
-import com.fast.dev.frame.utils.LogUtils;
-import com.fast.dev.frame.utils.StringUtils;
+import com.fast.library.utils.Constant;
+import com.fast.library.utils.FileUtils;
+import com.fast.library.utils.LogUtils;
+import com.fast.library.utils.StringUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;

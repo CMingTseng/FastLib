@@ -1,6 +1,5 @@
 package com.fast.library.tools;
 
-import com.fast.library.interfaces.BackExit;
 import com.fast.library.ui.ActivityStack;
 
 /**
@@ -12,17 +11,18 @@ import com.fast.library.ui.ActivityStack;
  * <p/>
  * 版本：verson 1.0
  */
-public class SimpleBackExit implements BackExit {
-    @Override
+public class BackExit {
+
+    /**
+     * 说明：退出提示
+     */
     public void showTips() {
     }
 
-    @Override
     public void exit() {
         ActivityStack.create().AppExit();
     }
 
-    @Override
     public long setWaitTime() {
         return 2000;
     }

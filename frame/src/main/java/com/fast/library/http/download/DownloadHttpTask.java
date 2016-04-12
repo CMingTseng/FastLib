@@ -2,18 +2,16 @@ package com.fast.library.http.download;
 
 import android.os.Message;
 
-import com.fast.dev.frame.http.HttpConfig;
-import com.fast.dev.frame.utils.FileUtils;
-import com.fast.dev.frame.utils.LogUtils;
-import com.fast.dev.frame.utils.StringUtils;
-
+import com.fast.library.http.HttpConfig;
+import com.fast.library.utils.FileUtils;
+import com.fast.library.utils.LogUtils;
+import com.fast.library.utils.StringUtils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

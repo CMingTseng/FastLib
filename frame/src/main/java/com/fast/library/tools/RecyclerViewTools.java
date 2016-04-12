@@ -48,7 +48,6 @@ public class RecyclerViewTools {
             mManager = new LinearLayoutManager(mRecyclerView.getContext(),LinearLayoutManager.VERTICAL,false);
         }
         mRecyclerView.setLayoutManager(mManager);
-        setHasFixedSize(true);
     }
 
     /**

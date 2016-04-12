@@ -1,7 +1,5 @@
 package com.fast.library.tools;
 
-import com.fast.library.interfaces.BackExit;
-
 /**
  * 说明：双击退出应用（在Activity的onBackPressed方法中调用该方法的onBackPressed）
  * <p/>

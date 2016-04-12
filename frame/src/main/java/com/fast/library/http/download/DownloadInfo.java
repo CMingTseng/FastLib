@@ -1,6 +1,6 @@
 package com.fast.library.http.download;
 
-import com.fast.dev.frame.utils.StringUtils;
+import com.fast.library.utils.StringUtils;
 
 /**
  * 说明：文件下载数据模型

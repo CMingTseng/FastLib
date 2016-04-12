@@ -7,8 +7,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.fast.dev.frame.utils.StringUtils;
-import com.fast.dev.frame.utils.UIUtils;
+import com.fast.library.utils.StringUtils;
+import com.fast.library.utils.UIUtils;
 
 /**
  * 说明：View的帮助类，赋值等功能
@@ -62,7 +62,7 @@ public final class ViewTools {
      * @param resString
      */
     public static void setText(View v,int resString){
-        setText(v,UIUtils.getString(resString));
+        setText(v, UIUtils.getString(resString));
     }
 
     /**

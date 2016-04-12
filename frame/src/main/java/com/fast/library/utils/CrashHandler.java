@@ -50,6 +50,9 @@ public abstract class CrashHandler implements UncaughtExceptionHandler {
      */
     public void init(){
         Thread.setDefaultUncaughtExceptionHandler(this);
+        if (isCleanHistory()){
+            FileUtils.deleteAllFile(new File(crashFile));
+        }
     }
 
     @Override
@@ -185,6 +188,14 @@ public abstract class CrashHandler implements UncaughtExceptionHandler {
      * @return
      */
     public abstract String setCrashFilePath();
+
+    /**
+     * 说明：开启后，每次新打开应用都会清理崩溃日志
+     * @return
+     */
+    public boolean isCleanHistory(){
+        return false;
+    }
 
 }
 

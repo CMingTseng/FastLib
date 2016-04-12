@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.fast.dev.frame.R;
-import com.fast.dev.frame.banner.adapter.BannerAdapter;
-import com.fast.dev.frame.banner.holder.BannerHolderCreator;
-import com.fast.dev.frame.banner.listener.BannerPointPageChangeListener;
-import com.fast.dev.frame.banner.listener.OnItemClickListener;
-import com.fast.dev.frame.banner.view.BannerViewPager;
+import com.fast.library.R;
+import com.fast.library.banner.adapter.BannerAdapter;
+import com.fast.library.banner.holder.BannerHolderCreator;
+import com.fast.library.banner.listener.BannerPointPageChangeListener;
+import com.fast.library.banner.listener.OnItemClickListener;
+import com.fast.library.banner.view.BannerViewPager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -119,10 +119,9 @@ public class BannerView<T> extends LinearLayout {
     }
 
     /**
-     * 通知数据变化
-     * 如果只是增加数据建议使用 notifyDataSetAdd()
+     * 说明：刷新数据
      */
-    public void notifyDataSetChanged(){
+    public void refresh(){
         mViewPager.getAdapter().notifyDataSetChanged();
         if (selected > 0 && normal > 0)
             setPoint(selected,normal);
