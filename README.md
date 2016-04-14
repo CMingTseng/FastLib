@@ -9,6 +9,7 @@
 > FastFrame.setDebug(true);将开启调试功能，打印网络请求日志，打印错误日志。
 > AndroidStudio: compile 'com.fast.library:frame:1.0.1'
 
+#Gradle:
 
 ```groovy
 compile 'com.fast.library:frame:1.0.1'
