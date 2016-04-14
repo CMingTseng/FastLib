@@ -6,7 +6,9 @@
 ###Gradle:
 
 ```groovy
-compile 'com.fast.library:frame:1.0.1'
+compile ('com.fast.library:frame:1.0.1'){
+        exclude group: 'glide-parent'
+    }
 ```
 
 ### 框架使用
