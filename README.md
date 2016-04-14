@@ -10,6 +10,10 @@
 > AndroidStudio: compile 'com.fast.library:frame:1.0.1'
 
 
+```groovy
+compile 'com.fast.library:frame:1.0.1'
+```
+
 ### 更新说明
 >[V1.0.1](https://github.com/FanlySff/FastLib) 
 - Activity管理(ActivityStack) 
