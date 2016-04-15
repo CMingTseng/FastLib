@@ -1,15 +1,18 @@
 package com.fast.library.http;
 
 import android.text.TextUtils;
+
 import com.fast.library.utils.FileUtils;
-import com.fast.library.utils.GsonUtils;
 import com.fast.library.utils.LogUtils;
 import com.fast.library.utils.StringUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import okhttp3.CacheControl;
 import okhttp3.FormBody;
 import okhttp3.Headers;
@@ -37,7 +40,7 @@ public class RequestParams {
     private RequestBody requestBody;
     private boolean applicationJson;
     private boolean urlEncoder;//是否进行URL编码
-    private JSONObject jsonParams;
+    private String jsonParams;//json参数
     protected CacheControl cacheControl;
 
     public RequestParams(){
@@ -220,7 +223,7 @@ public class RequestParams {
         this.cacheControl = cacheControl;
     }
 
-    public void setApplicationJson(JSONObject jsonParams){
+    public void setApplicationJson(String jsonParams){
         this.applicationJson = true;
         this.jsonParams = jsonParams;
     }
@@ -257,7 +260,7 @@ public class RequestParams {
     public RequestBody getRequestBody(){
         RequestBody body = null;
         if (applicationJson){
-            String json;
+            String json = "";
             if (jsonParams == null){
                 JSONObject jsonObject = new JSONObject();
                 for (Part part:mParams){
@@ -267,9 +270,13 @@ public class RequestParams {
                         LogUtils.e(e);
                     }
                 }
-                json = GsonUtils.toJson(jsonObject);
+                json = jsonObject.toString();
             }else {
-                json = GsonUtils.toJson(jsonParams);
+                try {
+                    json = new JSONObject(jsonParams).toString();
+                }catch (JSONException e){
+                    LogUtils.e(e);
+                }
             }
             body = RequestBody.create(MediaType.parse(ContentType.JSON.getContentType()),json);
         }else if (requestBody != null){

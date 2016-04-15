@@ -6,9 +6,16 @@
 ###Gradle:
 
 ```groovy
-compile ('com.fast.library:frame:1.0.1'){
+compile ('com.fast.library:frame:1.0.2'){
         exclude group: 'glide-parent'
     }
+    
+设置packagingOptions()
+android{
+    packagingOptions {
+            exclude 'META-INF/services/javax.annotation.processing.Processor'
+        }
+}
 ```
 
 ### 框架使用
@@ -68,6 +75,8 @@ JsonHttpCallBack返回JSONObject result
 ModelHttpCallBack返回Bean对象       
 StringHttpCallBack返回String字符串
 
+>[V1.0.1](https://github.com/FanlySff/FastLib)
+- 修改RequestParams设置为json时出错的bug
 
 License
 -------

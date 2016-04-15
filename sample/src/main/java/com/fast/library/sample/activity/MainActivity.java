@@ -13,7 +13,11 @@ import com.fast.library.tools.BackExit;
 import com.fast.library.tools.BackTools;
 import com.fast.library.tools.RecyclerViewTools;
 import com.fast.library.ui.ContentView;
+import com.fast.library.utils.GsonUtils;
+import com.fast.library.utils.LogUtils;
 import com.fast.library.utils.UIUtils;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,11 +55,58 @@ public class MainActivity extends CommonActivity implements BaseRecyclerAdapter.
         mAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(mAdapter);
     }
-
+    int a = 0;
     @OnClick(R.id.fab)
     public void onClick(View view) {
-        Snackbar.make(view, "你好", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        if (a == 0){
+            JSONObject object = new JSONObject();
+            try {
+                object.put("a0","b0");
+            }catch (Exception e){
+
+            }
+            Snackbar.make(view, object.toString(), Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            a = 1;
+            LogUtils.e("fanly0",object.toString());
+        }
+        if (a == 1){
+            String json = "{'a1':'b1'}";
+            try {
+                JSONObject object = new JSONObject(json);
+                Snackbar.make(view, GsonUtils.toJson(object), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                LogUtils.e("fanly1", GsonUtils.toJson(object));
+            }catch (Exception e){
+
+            }
+            a = 2;
+        }
+        if (a == 2){
+            String json = "{'a2':'b2'}";
+            try {
+                JSONObject object = new JSONObject(json);
+                Snackbar.make(view,object.toString(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                LogUtils.e("fanly2", object.toString());
+            }catch (Exception e){
+
+            }
+            a = 3;
+        }
+        if (a == 3){
+            String json = "{'a3':'b3'}";
+            try {
+//                JSONObject object = new JSONObject(json);
+//                object.put("a0","b0");
+                Snackbar.make(view,GsonUtils.toJson(json), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                LogUtils.e("fanly3", GsonUtils.toJson(json));
+            }catch (Exception e){
+
+            }
+            a = 0;
+        }
     }
 
     @Override
