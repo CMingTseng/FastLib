@@ -26,10 +26,8 @@ public abstract class BaseFragment extends FrameFragment implements HttpTaskKey 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         mActivity = getActivity();
-        return inflater.inflate(setRootView(),null);
+        return inflater.inflate(getRootViewResID(),null);
     }
-
-    protected abstract int setRootView();
 
     @Override
     public String getHttpTaskKey() {
@@ -87,6 +85,5 @@ public abstract class BaseFragment extends FrameFragment implements HttpTaskKey 
         intent.putExtras(bundle);
         mActivity.startActivity(intent);
     }
-
     /***************************************************************************************/
 }

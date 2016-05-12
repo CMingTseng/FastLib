@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.fast.library.HttpUtils;
 import com.fast.library.http.RequestParams;
 import com.fast.library.http.callback.DownloadCallBack;
-import com.fast.library.http.callback.StringHttpCallBack;
+import com.fast.library.http.callback.StringCallBack;
 import com.fast.library.sample.R;
 import com.fast.library.ui.ContentView;
 import com.fast.library.utils.SDCardUtils;
@@ -55,7 +55,7 @@ public class HttpActivity extends CommonActivity {
         switch (view.getId()) {
             case R.id.btn_baidu:
                 RequestParams params = new RequestParams(this);
-                HttpUtils.get("https://www.baidu.com", params, new StringHttpCallBack() {
+                HttpUtils.get("https://www.baidu.com", params, new StringCallBack() {
                     @Override
                     public void onSuccess(String result) {
                         tvInfo.setText(result);

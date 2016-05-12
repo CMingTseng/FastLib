@@ -24,13 +24,7 @@ public abstract class BaseActivity extends AbstractActivity implements HttpTaskK
     }
 
     @Override
-    public int setRootView() {
-        return 0;
-    }
-
-    @Override
     public void getIntentData(Intent intent) {
-
     }
 
     /***************************************************************************************/

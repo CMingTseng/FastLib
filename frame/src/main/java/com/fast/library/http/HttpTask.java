@@ -4,8 +4,8 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import com.fast.library.http.callback.BaseHttpCallBack;
 import com.fast.library.http.callback.JsonHttpCallBack;
-import com.fast.library.http.callback.ModelHttpCallBack;
-import com.fast.library.http.callback.StringHttpCallBack;
+import com.fast.library.http.callback.ModelCallBack;
+import com.fast.library.http.callback.StringCallBack;
 import com.fast.library.utils.Constant;
 import com.fast.library.utils.GsonUtils;
 import com.fast.library.utils.LogUtils;
@@ -209,7 +209,7 @@ public class HttpTask extends AsyncTask<Void,Long,ResponseData>{
                 }
                 if (code == 504) {
                     if (callback != null) {
-                        callback.onFailure(StringHttpCallBack.ERROR_RESPONSE_TIMEOUT,
+                        callback.onFailure(StringCallBack.ERROR_RESPONSE_TIMEOUT,
                                 "网络连接超时");
                     }
                 } else {
@@ -221,7 +221,7 @@ public class HttpTask extends AsyncTask<Void,Long,ResponseData>{
         } else {//请求无响应
             if (responseData.isTimeout()) {
                 if (callback != null) {
-                    callback.onFailure(StringHttpCallBack.ERROR_RESPONSE_TIMEOUT,
+                    callback.onFailure(StringCallBack.ERROR_RESPONSE_TIMEOUT,
                             "网络连接超时");
                 }
             } else {
@@ -229,7 +229,7 @@ public class HttpTask extends AsyncTask<Void,Long,ResponseData>{
                     LogUtils.e("url=" + url + "\n response empty");
                 }
                 if (callback != null) {
-                    callback.onFailure(StringHttpCallBack.ERROR_RESPONSE_UNKNOWN, "网络连接异常");
+                    callback.onFailure(StringCallBack.ERROR_RESPONSE_UNKNOWN, "网络连接异常");
                 }
             }
         }
@@ -253,15 +253,15 @@ public class HttpTask extends AsyncTask<Void,Long,ResponseData>{
         String result = responseData.getResponse();
 
         if (StringUtils.isEmpty(result)) {
-            callback.onFailure(StringHttpCallBack.ERROR_RESPONSE_NULL, "数据请求为空");
+            callback.onFailure(StringCallBack.ERROR_RESPONSE_NULL, "数据请求为空");
         }else {
             if (debug){
                 LogUtils.json(result);
             }
-            if (callback instanceof StringHttpCallBack){
+            if (callback instanceof StringCallBack){
                 callback.onSuccess(responseData.getHeaders(),result);
                 callback.onSuccess(result);
-            }else if (callback instanceof ModelHttpCallBack){
+            }else if (callback instanceof ModelCallBack){
                 try {
                     Object obj = GsonUtils.toBean(result, callback.getClazz());
                     if (obj != null){
@@ -283,6 +283,9 @@ public class HttpTask extends AsyncTask<Void,Long,ResponseData>{
                     LogUtils.e(e);
                     callback.onFailure(BaseHttpCallBack.ERROR_RESPONSE_JSON_EXCEPTION, "数据解析错误");
                 }
+            }else if (callback instanceof BaseHttpCallBack){
+                callback.onSuccess(responseData.getHeaders(),result);
+                callback.onSuccess(result);
             }
         }
     }

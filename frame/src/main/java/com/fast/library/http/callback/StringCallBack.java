@@ -9,9 +9,9 @@ package com.fast.library.http.callback;
  * <p/>
  * 版本：verson 1.0
  */
-public abstract class StringHttpCallBack extends BaseHttpCallBack<String>{
+public abstract class StringCallBack extends BaseHttpCallBack<String>{
 
-    public StringHttpCallBack(){
+    public StringCallBack(){
     }
 
 }

@@ -16,7 +16,7 @@ public class FastFrame {
     //上下文
     private static Application mApplication;
     //是否调试
-    public static boolean isDebug = true;
+    public static boolean isDebug = BuildConfig.DEBUG;
 
     /**
      * 说明：框架初始化

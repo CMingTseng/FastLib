@@ -1,7 +1,9 @@
 package com.fast.library.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +23,8 @@ import com.fast.library.utils.LogUtils;
 
 public abstract class SupportFragment extends Fragment implements OnClickListener{
     public static final int WHICH_MSG = 0x100;
-
     protected View fragmentRootView;
+    private int resId = 0;
 
     /**
      * 一个私有回调类，线程中初始化数据完成后的回调
@@ -43,13 +45,37 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
         }
     };
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        setViewBefor(context);
+    }
+
     protected abstract View inflaterView(LayoutInflater inflater,
                                          ViewGroup container, Bundle bundle);
 
     /**
+     * 说明：设置布局文件
+     * @param resId
+     */
+    protected final void setRootViewResID(int resId){
+        this.resId = resId;
+    }
+
+    protected int getRootViewResID(){
+        return resId;
+    }
+
+    /**
      * 说明：初始化数据
      */
-    protected void onInit(View view) {}
+    protected abstract void onInit(Bundle savedInstanceState,View view);
+
+    /**
+     * 说明：在绑定数据之前调用
+     * @param context
+     */
+    protected abstract void setViewBefor(Context context);
 
     /**
      * 说明：在新的线程中初始化数据
@@ -74,22 +100,27 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
     protected void clickView(View v,int id) {}
 
     @Override
-    public void onClick(View v) {
+    public final void onClick(View v) {
         clickView(v,v.getId());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        AnnotateViewUtils.init(this);
         fragmentRootView = inflaterView(inflater, container, savedInstanceState);
         return fragmentRootView;
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        onInit(savedInstanceState,fragmentRootView);
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AnnotateUtils.init(this, view);
-        onInit(view);
         new Thread(new Runnable() {
             @Override
             public void run() {

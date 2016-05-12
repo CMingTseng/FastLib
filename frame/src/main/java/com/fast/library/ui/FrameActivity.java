@@ -20,11 +20,9 @@ import android.view.View.OnClickListener;
 public abstract class FrameActivity extends AppCompatActivity implements OnClickListener,
         I_Broadcast, I_Activity, I_SkipActivity {
 
-
     public static final int WHICH_MSG = 0x100;
     protected FrameFragment currentFragment;
     protected SupportFragment currentSupportFragment;
-
 
     /**
      * 说明：一个私有回调类，线程中初始化数据完成后的回调
@@ -48,12 +46,9 @@ public abstract class FrameActivity extends AppCompatActivity implements OnClick
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentViewBefor();
-        if (!AnnotateUtils.initContentView(this)){
-            setContentView(setRootView());
-        }
-        if (useAnnotate()){
-            AnnotateUtils.init(this);
+        setViewBefor();
+        if (!AnnotateViewUtils.init(this)){
+            throw new RuntimeException("please use @ContentView() in your Activity!");
         }
         initializer(bundle);
         registerBroadcast();
@@ -80,12 +75,9 @@ public abstract class FrameActivity extends AppCompatActivity implements OnClick
     }
 
     @Override
-    public void onClick(View v) {
+    public final void onClick(View v) {
         clickView(v,v.getId());
     }
-
-    @Override
-    public abstract int setRootView();
 
     @Override
     public abstract void onInit(Bundle bundle);
@@ -111,18 +103,10 @@ public abstract class FrameActivity extends AppCompatActivity implements OnClick
     public void unRegisterBroadcast() {}
 
     /**
-     * 说明：使用注解
-     * @return
-     */
-    protected boolean useAnnotate(){
-        return false;
-    }
-
-    /**
      * 说明:设置界面之前调用
      * @return
      */
-    protected void setContentViewBefor(){}
+    protected void setViewBefor(){}
 
     /**
      * 说明：初始化工作

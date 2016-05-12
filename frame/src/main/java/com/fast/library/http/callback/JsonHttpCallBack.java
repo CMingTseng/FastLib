@@ -12,7 +12,8 @@ import org.json.JSONObject;
  * <p/>
  * 版本：verson 1.0
  */
-public abstract class JsonHttpCallBack extends StringHttpCallBack {
+@Deprecated
+public abstract class JsonHttpCallBack extends StringCallBack {
 
     public abstract void onSuccess(JSONObject result);
 

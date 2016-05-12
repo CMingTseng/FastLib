@@ -23,9 +23,6 @@ import java.io.File;
  */
 public class HttpUtils {
 
-    //网络配置器
-    private static HttpConfig sConfig = null;
-
     /**
      * 说明：禁止实例化
      */

@@ -7,6 +7,11 @@ import com.fast.library.http.HttpConfig;
 import com.fast.library.sample.config.C;
 import com.fast.library.sample.tools.MyCrashHandler;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Headers;
+
 /**
  * 说明：BaseApplication
  * <p/>
@@ -29,6 +34,10 @@ public class BaseApplication extends Application{
         HttpConfig.Builder builder = new HttpConfig.Builder();
         builder.setTrustAll(true);
         builder.setTimeout(C.TIME_OUT);
+        Map<String,String> map = new HashMap<>();
+        map.put("","");
+        Headers headers = Headers.of(map);
+        builder.setCommonHeaders(headers);
         builder.build().init();
     }
 }

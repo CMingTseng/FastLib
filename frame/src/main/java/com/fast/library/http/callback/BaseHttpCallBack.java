@@ -81,7 +81,6 @@ public abstract class BaseHttpCallBack<T> {
     }
 
     public void onResponse(Response httpResponse, String response, Headers headers) {
-
     }
 
     public void onResponse(String response, Headers headers) {
