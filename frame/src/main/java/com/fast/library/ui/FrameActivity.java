@@ -75,7 +75,7 @@ public abstract class FrameActivity extends AppCompatActivity implements OnClick
     }
 
     @Override
-    public final void onClick(View v) {
+    public void onClick(View v) {
         clickView(v,v.getId());
     }
 

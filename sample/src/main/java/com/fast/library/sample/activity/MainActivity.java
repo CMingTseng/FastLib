@@ -57,7 +57,7 @@ public class MainActivity extends CommonActivity implements BaseRecyclerAdapter.
     }
     int a = 0;
     @OnClick(R.id.fab)
-    public void onClick(View view) {
+    public void onBtnClick(View view) {
         if (a == 0){
             JSONObject object = new JSONObject();
             try {

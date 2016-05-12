@@ -58,7 +58,7 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
     }
 
     @OnClick({R.id.btn_start, R.id.btn_stop, R.id.btn_add})
-    public void onClick(View view) {
+    public void onBClick(View view) {
         switch (view.getId()) {
             case R.id.btn_start:
                 bannerView.start(time);

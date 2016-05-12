@@ -5,10 +5,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fast.library.HttpUtils;
-import com.fast.library.http.RequestParams;
 import com.fast.library.http.callback.DownloadCallBack;
-import com.fast.library.http.callback.StringCallBack;
+import com.fast.library.http.callback.ModelCallBack;
 import com.fast.library.sample.R;
+import com.fast.library.sample.tools.Api;
 import com.fast.library.ui.ContentView;
 import com.fast.library.utils.SDCardUtils;
 import com.fast.library.utils.ToolUtils;
@@ -51,21 +51,9 @@ public class HttpActivity extends CommonActivity {
     }
 
     @OnClick({R.id.btn_baidu, R.id.btn_download})
-    public void onClick(View view) {
+    public void onBtnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_baidu:
-                RequestParams params = new RequestParams(this);
-                HttpUtils.get("https://www.baidu.com", params, new StringCallBack() {
-                    @Override
-                    public void onSuccess(String result) {
-                        tvInfo.setText(result);
-                    }
-
-                    @Override
-                    public void onFailure(int errorCode, String msg) {
-                        tvInfo.setText(msg);
-                    }
-                });
                 break;
             case R.id.btn_download:
                 tvInfo.setText("");

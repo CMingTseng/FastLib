@@ -34,10 +34,6 @@ public class BaseApplication extends Application{
         HttpConfig.Builder builder = new HttpConfig.Builder();
         builder.setTrustAll(true);
         builder.setTimeout(C.TIME_OUT);
-        Map<String,String> map = new HashMap<>();
-        map.put("","");
-        Headers headers = Headers.of(map);
-        builder.setCommonHeaders(headers);
         builder.build().init();
     }
 }

@@ -100,7 +100,7 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
     protected void clickView(View v,int id) {}
 
     @Override
-    public final void onClick(View v) {
+    public void onClick(View v) {
         clickView(v,v.getId());
     }
 

@@ -14,8 +14,6 @@ import android.view.View;
  * 版本：verson 1.0
  */
 public interface I_Activity {
-    /*设置界面*/
-    int setRootView();
     /*初始化数据*/
     void onInit(Bundle bundle);
     /*在线程中初始化数据*/

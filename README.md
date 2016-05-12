@@ -1,12 +1,12 @@
 # FastLib
 
 代码积累-快速开发框架@FanlySff
-当前版本  [V1.0.3](https://github.com/FanlySff/FastLib)
+当前版本  [V1.0.4](https://github.com/FanlySff/FastLib)
 
 ###Gradle:
 
 ```groovy
-compile ('com.fast.library:frame:1.0.3'){
+compile ('com.fast.library:frame:1.0.4'){
         exclude group: 'glide-parent'
     }
     
@@ -76,9 +76,13 @@ StringHttpCallBack返回String字符串
 
 >[V1.0.1](https://github.com/FanlySff/FastLib)
 - 修改RequestParams设置为json时出错的bug
+
 >[V1.0.3](https://github.com/FanlySff/FastLib)
 - 删除setRootView()方法
 - 默认使用@ContenView()设置Activity和Fragment布局
+
+>[V1.0.4](https://github.com/FanlySff/FastLib)
+-修改Bug
 
 License
 -------

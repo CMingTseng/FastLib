@@ -35,7 +35,7 @@ public abstract class FrameFragment extends Fragment implements OnClickListener 
     };
 
     @Override
-    public final void onClick(View v) {
+    public void onClick(View v) {
         clickView(v,v.getId());
     }
 
