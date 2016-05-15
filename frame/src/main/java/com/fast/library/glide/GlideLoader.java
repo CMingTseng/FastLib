@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -177,6 +178,16 @@ public class GlideLoader {
     /**
      * 说明：获取request
      * @param context
+     * @param uri
+     * @return
+     */
+    public static DrawableTypeRequest load(Context context,Uri uri){
+        return load(context,uri,0,0);
+    }
+
+    /**
+     * 说明：获取request
+     * @param context
      * @param url
      * @param placeHolder [-1:使用默认，0不使用，>0替换默认]
      * @param errorHolder
@@ -184,28 +195,27 @@ public class GlideLoader {
      */
     public static DrawableTypeRequest load(Context context,String url,int placeHolder,int errorHolder){
         DrawableTypeRequest request = Glide.with(context).load(url);
-        int place = 0;
-        if (placeHolder > 0){
-            place = placeHolder;
-        }else if (placeHolder < 0){
-            place = sGloblePlaceHolder;
-        }
+        int place = placeHolder > 0 ? placeHolder : placeHolder <= 0 ? sGloblePlaceHolder : 0;
+        int error = errorHolder > 0 ? errorHolder : errorHolder <= 0 ? sGloblePlaceHolder : 0;
+        if (place != 0) request.placeholder(place);
+        if (error != 0) request.error(error);
+        return request;
+    }
 
-        int error = 0;
-        if (errorHolder > 0){
-            error = errorHolder;
-        }else if (placeHolder < 0){
-            error = sGlobleErrorHolder;
-        }
-
-        if (place != 0){
-            request.placeholder(place);
-        }
-        if (error != 0){
-            request.error(error);
-        }
-
-
+    /**
+     * 说明：获取request
+     * @param context
+     * @param uri
+     * @param placeHolder [-1:使用默认，0不使用，>0替换默认]
+     * @param errorHolder
+     * @return
+     */
+    public static DrawableTypeRequest load(Context context,Uri uri,int placeHolder,int errorHolder){
+        DrawableTypeRequest request = Glide.with(context).load(uri);
+        int place = placeHolder > 0 ? placeHolder : placeHolder <= 0 ? sGloblePlaceHolder : 0;
+        int error = errorHolder > 0 ? errorHolder : errorHolder <= 0 ? sGloblePlaceHolder : 0;
+        if (place != 0) request.placeholder(place);
+        if (error != 0) request.error(error);
         return request;
     }
 
@@ -219,28 +229,10 @@ public class GlideLoader {
      */
     public static DrawableTypeRequest load(Context context,int resId,int placeHolder,int errorHolder){
         DrawableTypeRequest request = Glide.with(context).load(resId);
-        int place = 0;
-        if (placeHolder > 0){
-            place = placeHolder;
-        }else if (placeHolder < 0){
-            place = sGloblePlaceHolder;
-        }
-
-        int error = 0;
-        if (errorHolder > 0){
-            error = errorHolder;
-        }else if (placeHolder < 0){
-            error = sGlobleErrorHolder;
-        }
-
-        if (place != 0){
-            request.placeholder(place);
-        }
-        if (error != 0){
-            request.error(error);
-        }
-
-
+        int place = placeHolder > 0 ? placeHolder : placeHolder <= 0 ? sGloblePlaceHolder : 0;
+        int error = errorHolder > 0 ? errorHolder : errorHolder <= 0 ? sGloblePlaceHolder : 0;
+        if (place != 0) request.placeholder(place);
+        if (error != 0) request.error(error);
         return request;
     }
 
@@ -249,8 +241,50 @@ public class GlideLoader {
      * @param url
      * @param view
      */
-    public static void into(String url, final View view){
+    public static void into(String url,View view){
         into(url,view,-1,-1);
+    }
+
+    /**
+     * 说明：显示资源文件
+     * @param resId
+     * @param view
+     */
+    public static void into(int resId,View view){
+        into(resId,view,-1,-1);
+    }
+
+    /**
+     * 说明：显示资源文件
+     * @param resId
+     * @param view
+     */
+    public static void into(int resId, View view,int placeHolder,int errorHolder){
+        int place = placeHolder > 0 ? placeHolder : placeHolder <= 0 ? sGloblePlaceHolder : 0;
+        int error = errorHolder > 0 ? errorHolder : errorHolder <= 0 ? sGloblePlaceHolder : 0;
+        if (view instanceof ImageView){
+            load(view.getContext(),resId,place,error);
+        }
+        into(resId,view,-1,-1);
+    }
+    /**
+     * 说明：显示资源文件
+     * @param uri
+     * @param view
+     */
+    public static void into(Uri uri,ImageView view){
+        into(uri,view,-1,-1);
+    }
+
+    /**
+     * 说明：显示资源文件
+     * @param uri
+     * @param view
+     */
+    public static void into(Uri uri, ImageView view,int placeHolder,int errorHolder){
+        int place = placeHolder > 0 ? placeHolder : placeHolder <= 0 ? sGloblePlaceHolder : 0;
+        int error = errorHolder > 0 ? errorHolder : errorHolder <= 0 ? sGloblePlaceHolder : 0;
+        load(view.getContext(),uri,place,error).into(view);
     }
 
     /**
@@ -274,13 +308,7 @@ public class GlideLoader {
             bitmap(context,url, new BitmapListener() {
                 @Override
                 public void onStart() {
-                    int place = 0;
-                    if (placeHolder > 0){
-                        place = placeHolder;
-                    }else if (placeHolder < 0){
-                        place = sGloblePlaceHolder;
-                    }
-
+                    int place = placeHolder > 0 ? placeHolder : placeHolder <= 0 ? sGloblePlaceHolder : 0;
                     if (place > 0){
                         view.setBackgroundResource(place);
                     }
@@ -289,20 +317,12 @@ public class GlideLoader {
                 @Override
                 public void onSuccess(Bitmap bitmap) {
                     view.setBackgroundDrawable(new BitmapDrawable(bitmap));
-                    if (bitmap != null){
-                        bitmap.recycle();
-                    }
+                    recycle(bitmap);
                 }
 
                 @Override
                 public void onFail(Exception e) {
-                    int error = 0;
-                    if (errorHolder > 0){
-                        error = errorHolder;
-                    }else if (errorHolder < 0){
-                        error = sGlobleErrorHolder;
-                    }
-
+                    int error = errorHolder > 0 ? errorHolder : errorHolder <= 0 ? sGlobleErrorHolder : 0;
                     if (error > 0){
                         view.setBackgroundResource(error);
                     }
@@ -464,15 +484,18 @@ public class GlideLoader {
      * 说明：清理缓存文件
      * @param filePath
      */
-    public static void clean(String filePath){
+    public static long clean(String filePath){
         if (TextUtils.isEmpty(filePath)){
-            return;
+            return 0;
         }
         File file = new File(filePath);
         if (!file.exists() || !file.isDirectory()){
-            return;
+            return 0;
+        }else {
+            long size = file.length();
+            FileUtils.deleteAllFile(file);
+            return size;
         }
-        FileUtils.deleteAllFile(file);
     }
 
     /**
