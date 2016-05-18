@@ -85,6 +85,12 @@ public class HttpConfig {
         this.retryConnectionFailure = builder.retryConnectionFailure;
         this.redirects = builder.redirects;
         this.sslRedirects = builder.redirects;
+        this.cookieJar = builder.cookieJar;
+        this.dispatcher = builder.dispatcher;
+        this.cache = builder.cache;
+        this.authenticator = builder.authenticator;
+        this.certificatePinner = builder.certificatePinner;
+        this.proxy = builder.proxy;
     }
 
     /**

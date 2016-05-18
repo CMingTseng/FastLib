@@ -1,12 +1,12 @@
 # FastLib
 
 代码积累-快速开发框架@FanlySff
-当前版本  [V1.0.4](https://github.com/FanlySff/FastLib)
+当前版本  [V1.0.5](https://github.com/FanlySff/FastLib)
 
 ###Gradle:
 
 ```groovy
-compile ('com.fast.library:frame:1.0.4'){
+compile ('com.fast.library:frame:1.0.5'){
         exclude group: 'glide-parent'
     }
     
@@ -83,6 +83,9 @@ StringHttpCallBack返回String字符串
 
 >[V1.0.4](https://github.com/FanlySff/FastLib)
 -修改Bug
+
+>[V1.0.5](https://github.com/FanlySff/FastLib)
+-添加OkHttp的Cookie管理
 
 License
 -------
