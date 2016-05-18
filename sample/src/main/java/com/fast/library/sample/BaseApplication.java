@@ -23,6 +23,8 @@ import okhttp3.Headers;
  */
 public class BaseApplication extends Application{
 
+    //gradlew install  gradlew bintrayUpload
+
     @Override
     public void onCreate() {
         super.onCreate();
