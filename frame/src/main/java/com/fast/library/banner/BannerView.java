@@ -53,8 +53,6 @@ public class BannerView<T> extends LinearLayout {
     private BannerViewPager mViewPager;
     private LinearLayout ll_dots;
 
-
-
     private AutoBannerTask mAutonBannerTask;
 
     public BannerView(Context context) {
@@ -121,10 +119,17 @@ public class BannerView<T> extends LinearLayout {
     /**
      * 说明：刷新数据
      */
-    public void refresh(){
-        mViewPager.getAdapter().notifyDataSetChanged();
-        if (selected > 0 && normal > 0)
+    public void refresh(BannerHolderCreator holderCreator,List<T> data){
+        if (data != null && !data.isEmpty()){
+            mAdapter = null;
+            setPages(holderCreator,data);
+            if (isLoop){
+                start(mDelayTime);
+            }
+        }
+        if (selected > 0 && normal > 0){
             setPoint(selected,normal);
+        }
     }
 
     /**
@@ -134,9 +139,11 @@ public class BannerView<T> extends LinearLayout {
      * @return
      */
     public BannerView setPages(BannerHolderCreator holderCreator,List<T> data){
-        this.mDatas = data;
-        mAdapter = new BannerAdapter(holderCreator,mDatas);
-        mViewPager.setAdapter(mAdapter, canLoop);
+        if (mAdapter == null){
+            this.mDatas = data;
+            mAdapter = new BannerAdapter(holderCreator,mDatas);
+            mViewPager.setAdapter(mAdapter, canLoop);
+        }
         return this;
     }
 
@@ -180,7 +187,9 @@ public class BannerView<T> extends LinearLayout {
      * @return
      */
     public BannerView setPointVisible(boolean isVisible){
-        ll_dots.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+        if (ll_dots != null){
+            ll_dots.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+        }
         return this;
     }
 
@@ -233,6 +242,9 @@ public class BannerView<T> extends LinearLayout {
      * @return
      */
     public BannerView start(long delayTime){
+        if (delayTime <= 0){
+            return this;
+        }
         if (isLoop){
             stop();
         }

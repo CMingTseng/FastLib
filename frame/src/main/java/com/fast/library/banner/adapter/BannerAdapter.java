@@ -24,7 +24,7 @@ public class BannerAdapter<T> extends PagerAdapter {
     protected List<T> mDatas;
     private boolean canLoop;
     private BannerViewPager mViewPager;
-    private final int MULTIPLE_COUNT = 300;
+    private final int MULTIPLE_COUNT = 3;
 
     public BannerAdapter(BannerHolderCreator holderCreator,List<T> data){
         this.mDatas = data;

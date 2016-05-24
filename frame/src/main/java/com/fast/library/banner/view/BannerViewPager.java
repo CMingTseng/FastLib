@@ -131,12 +131,12 @@ public class BannerViewPager extends ViewPager{
 
     public void setCanLoop(boolean canLoop){
         this.canLoop = canLoop;
-        if (canLoop == false){
-            setCurrentItem(getRealItem());
-        }
+//        if (canLoop == false){
+//            setCurrentItem(getRealItem());
+//        }
         if (mAdapter == null)return;
         mAdapter.setCanLoop(true);
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
     }
 
     public int getFirstItem(){

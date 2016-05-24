@@ -35,8 +35,7 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
     @Bind(R.id.bannerView)
     BannerView bannerView;
 
-    private long time = 2000;
-
+    private BannerHolderCreator<BannerImageHolder> holder;
     private List<String> data = new ArrayList<>();
     private String []urls;
 
@@ -44,53 +43,57 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
     public void onInit(Bundle bundle) {
         super.onInit(bundle);
         ButterKnife.bind(this);
-
         urls = UIUtils.getStringArray(R.array.banner_three);
         Collections.addAll(data, urls);
-        bannerView.setPages(new BannerHolderCreator() {
+        holder = new BannerHolderCreator<BannerImageHolder>() {
             @Override
-            public Object createHolder() {
+            public BannerImageHolder createHolder() {
                 return new BannerImageHolder();
             }
-        }, data);
+        };
+        bannerView.setPages(holder, data);
         bannerView.setPoint(R.mipmap.home_banner_selected, R.mipmap.home_banner_normal);
         bannerView.setOnItemClickListener(this);
     }
 
-    @OnClick({R.id.btn_start, R.id.btn_stop, R.id.btn_add})
+    @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3})
     public void onBClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_start:
-                bannerView.start(time);
-                break;
-            case R.id.btn_stop:
-                bannerView.stop();
-                break;
-            case R.id.btn_add:
-                int size = data.size();
+            case R.id.btn_1:
                 data.clear();
-                if (size <= 1){
-                    urls = UIUtils.getStringArray(R.array.banner_three);
-                    Collections.addAll(data, urls);
-                }else {
-                    urls = UIUtils.getStringArray(R.array.banner_one);
-                    Collections.addAll(data,urls);
-                }
-                bannerView.refresh();
+                urls = UIUtils.getStringArray(R.array.banner_one);
+                Collections.addAll(data, urls);
+                break;
+            case R.id.btn_2:
+                data.clear();
+                urls = UIUtils.getStringArray(R.array.banner_two);
+                Collections.addAll(data, urls);
+                break;
+            case R.id.btn_3:
+                data.clear();
+                urls = UIUtils.getStringArray(R.array.banner_three);
+                Collections.addAll(data, urls);
                 break;
         }
+        if (data.size() > 1){
+            bannerView.setPointVisible(true);
+            bannerView.setCanLoop(true);
+        }else {
+            bannerView.setPointVisible(false);
+            bannerView.setCanLoop(false);
+        }
+        bannerView.refresh(holder,data);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        bannerView.start(time);
+        bannerView.start(2000);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        bannerView.stop();
     }
 
     @Override
