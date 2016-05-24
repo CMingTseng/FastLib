@@ -264,8 +264,9 @@ public class GlideLoader {
         int error = errorHolder > 0 ? errorHolder : errorHolder <= 0 ? sGloblePlaceHolder : 0;
         if (view instanceof ImageView){
             load(view.getContext(),resId,place,error);
+        }else {
+            view.setBackgroundResource(resId);
         }
-        into(resId,view,-1,-1);
     }
     /**
      * 说明：显示资源文件
