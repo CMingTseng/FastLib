@@ -183,14 +183,15 @@ public final class ToolUtils {
     /**
      * 说明：强制显示软键盘
      *
-     * @param view
+     * @param et
      */
-    public static void showSoftInput(View view) {
-        if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) view
+    public static void showSoftInput(EditText et) {
+        if (et != null) {
+            et.requestFocus();
+            InputMethodManager inputManager = (InputMethodManager) et
                     .getContext()
                     .getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+            inputManager.showSoftInput(et, InputMethodManager.SHOW_FORCED);
         }
     }
 

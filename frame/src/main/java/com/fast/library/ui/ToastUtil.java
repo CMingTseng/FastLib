@@ -13,20 +13,20 @@ import com.fast.library.utils.UIUtils;
  * 版本：verson 1.0
  */
 
-public class Toast {
+public class ToastUtil {
 
-    private static Toast inject;
+    private static ToastUtil inject;
     private android.widget.Toast mToast;
 
     /*禁止实例化*/
-    private Toast() {
+    private ToastUtil() {
     }
 
-    public static Toast get() {
+    public static ToastUtil get() {
         if (inject == null) {
-            synchronized (Toast.class) {
+            synchronized (ToastUtil.class) {
                 if (inject == null) {
-                    inject = new Toast();
+                    inject = new ToastUtil();
                 }
             }
         }

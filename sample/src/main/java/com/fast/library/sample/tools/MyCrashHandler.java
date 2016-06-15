@@ -2,7 +2,7 @@ package com.fast.library.sample.tools;
 
 import com.fast.library.sample.R;
 import com.fast.library.sample.config.C;
-import com.fast.library.ui.Toast;
+import com.fast.library.ui.ToastUtil;
 import com.fast.library.utils.AndroidInfoUtils;
 import com.fast.library.utils.CrashHandler;
 import com.fast.library.utils.DateUtils;
@@ -40,7 +40,7 @@ public class MyCrashHandler extends CrashHandler{
     @Override
     public void showCrashTip() {
         super.showCrashTip();
-        Toast.get().shortToast(UIUtils.getString(R.string.crash_tip));
+        ToastUtil.get().shortToast(UIUtils.getString(R.string.crash_tip));
     }
 
     @Override

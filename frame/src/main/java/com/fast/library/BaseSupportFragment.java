@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.fast.library.http.HttpTaskKey;
 import com.fast.library.ui.SupportFragment;
-import com.fast.library.ui.Toast;
+import com.fast.library.ui.ToastUtil;
 
 /**
  * 说明：Fragment基类(V4)
@@ -38,19 +38,19 @@ public abstract class BaseSupportFragment extends SupportFragment implements Htt
     /***************************************************************************************/
 
     public void shortToast(int res){
-        Toast.get().shortToast(res);
+        ToastUtil.get().shortToast(res);
     }
     public void shortToast(String res){
-        Toast.get().shortToast(res);
+        ToastUtil.get().shortToast(res);
     }
     public void longToast(String res){
-        Toast.get().longToast(res);
+        ToastUtil.get().longToast(res);
     }
     public void longToast(int res){
-        Toast.get().longToast(res);
+        ToastUtil.get().longToast(res);
     }
     public void cancelToast(){
-        Toast.get().cancelToast();
+        ToastUtil.get().cancelToast();
     }
 
     /***************************************************************************************/

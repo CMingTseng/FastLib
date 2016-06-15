@@ -9,7 +9,7 @@ import com.fast.library.banner.listener.OnItemClickListener;
 import com.fast.library.sample.R;
 import com.fast.library.sample.banner.BannerImageHolder;
 import com.fast.library.ui.ContentView;
-import com.fast.library.ui.Toast;
+import com.fast.library.ui.ToastUtil;
 import com.fast.library.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -98,6 +98,6 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
 
     @Override
     public void onItemClick(int position) {
-        Toast.get().shortToast(data.get(position));
+        ToastUtil.get().shortToast(data.get(position));
     }
 }

@@ -246,6 +246,19 @@ public final class DateUtils {
     }
 
     /**
+     * 说明：将字符串时间转Long类型
+     *
+     * @param date
+     *            要转的时间
+     * @param format
+     *            时间格式
+     * @return
+     */
+    public static final long getStrToLong(String date,String format){
+        return getStrToDate(date, format).getTime();
+    }
+
+    /**
      * 说明：获取当前时间，默认时间格式【yyyy-MM-dd HH:mm:ss】
      *
      * @return
