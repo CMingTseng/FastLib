@@ -12,7 +12,7 @@ import com.fast.library.utils.GsonUtils;
  * <p/>
  * 版本：verson 1.0
  */
-public class Model implements I_Model{
+public class Pojo implements I_POJO {
     @Override
     public String getType() {
         return getClass().getName();

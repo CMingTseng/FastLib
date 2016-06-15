@@ -1,7 +1,5 @@
 package com.fast.library.http.callback;
 
-import com.fast.library.bean.Model;
-
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 

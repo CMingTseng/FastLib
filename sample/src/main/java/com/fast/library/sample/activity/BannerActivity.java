@@ -1,6 +1,7 @@
 package com.fast.library.sample.activity;
 
 import android.os.Bundle;
+import android.support.v4.content.Loader;
 import android.view.View;
 
 import com.fast.library.banner.BannerView;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -32,7 +33,7 @@ import butterknife.OnClick;
 @ContentView(R.layout.activity_banner)
 public class BannerActivity extends CommonActivity implements OnItemClickListener {
 
-    @Bind(R.id.bannerView)
+    @BindView(R.id.bannerView)
     BannerView bannerView;
 
     private BannerHolderCreator<BannerImageHolder> holder;
@@ -54,6 +55,11 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
         bannerView.setPages(holder, data);
         bannerView.setPoint(R.mipmap.home_banner_selected, R.mipmap.home_banner_normal);
         bannerView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public int createLoaderID() {
+        return 0;
     }
 
     @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3})
@@ -99,5 +105,15 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
     @Override
     public void onItemClick(int position) {
         ToastUtil.get().shortToast(data.get(position));
+    }
+
+    @Override
+    public Loader onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader loader, Object data) {
+
     }
 }

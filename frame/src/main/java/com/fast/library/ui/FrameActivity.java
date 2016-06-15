@@ -18,7 +18,7 @@ import android.view.View.OnClickListener;
  */
 
 public abstract class FrameActivity extends AppCompatActivity implements OnClickListener,
-        I_Broadcast, I_Activity, I_SkipActivity {
+        I_Broadcast, I_Activity, I_SkipActivity,I_Service{
 
     public static final int WHICH_MSG = 0x100;
     protected FrameFragment currentFragment;
@@ -52,6 +52,7 @@ public abstract class FrameActivity extends AppCompatActivity implements OnClick
         }
         initializer(bundle);
         registerBroadcast();
+        registerService();
     }
 
     @SuppressWarnings("unchecked")
@@ -71,6 +72,7 @@ public abstract class FrameActivity extends AppCompatActivity implements OnClick
     @Override
     protected void onDestroy() {
         unRegisterBroadcast();
+        unRegisterService();
         super.onDestroy();
     }
 
@@ -101,6 +103,12 @@ public abstract class FrameActivity extends AppCompatActivity implements OnClick
 
     @Override
     public void unRegisterBroadcast() {}
+
+    @Override
+    public void registerService() {}
+
+    @Override
+    public void unRegisterService() {}
 
     /**
      * 说明:设置界面之前调用

@@ -9,7 +9,7 @@ package com.fast.library.bean;
  * <p/>
  * 版本：verson 1.0
  */
-public interface I_Model{
+public interface I_POJO {
 
     /**
      * 说明：获取类型

@@ -420,7 +420,7 @@ public final class FileUtils {
         }
         if (directory.exists()){
             if (!directory.isDirectory()){
-                throw new IOException("message = "+directory+" exists and is not a directory!");
+                throw new IOException("message = "+directory+" exists and is not BaseContract directory!");
             }
         }else {
             if (!directory.mkdirs()){

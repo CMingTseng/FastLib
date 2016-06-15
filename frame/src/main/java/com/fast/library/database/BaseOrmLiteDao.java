@@ -2,7 +2,7 @@ package com.fast.library.database;
 
 import android.content.Context;
 
-import com.android.my.quran.db.impl.DaoOperation;
+import com.fast.library.database.impl.DaoOperation;
 import com.fast.library.utils.LogUtils;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
