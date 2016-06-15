@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.Map;
 public final class GsonUtils {
 
     private static Gson sGson = null;
+
+    private final static String TAG = "GsonUtils";
 
     static {
         if (sGson == null){
@@ -164,6 +167,102 @@ public final class GsonUtils {
         }.getType();
         Map<?,?> map  = sGson.fromJson(json, type);
         return map;
+    }
+
+    /**
+     * 说明：解析json
+     * @param json
+     * @param key
+     * @return
+     */
+    public static String optString(String json,String key){
+        try {
+            JSONObject object = new JSONObject(json);
+            return object.getString(key);
+        } catch (Exception e) {
+            LogUtils.e(TAG,"get "+key+" error!");
+        }
+        return "";
+    }
+
+    /**
+     * 说明：解析json
+     * @param json
+     * @param key
+     * @return
+     */
+    public static int optInt(String json,String key){
+        try {
+            JSONObject object = new JSONObject(json);
+            return object.getInt(key);
+        } catch (Exception e) {
+            LogUtils.e(TAG,"get "+key+" error!");
+        }
+        return 0;
+    }
+
+    /**
+     * 说明：解析json
+     * @param json
+     * @param key
+     * @return
+     */
+    public static boolean optBoolean(String json,String key){
+        try {
+            JSONObject object = new JSONObject(json);
+            return object.getBoolean(key);
+        } catch (Exception e) {
+            LogUtils.e(TAG,"get "+key+" error!");
+        }
+        return false;
+    }
+
+    /**
+     * 说明：解析json
+     * @param json
+     * @param key
+     * @return
+     */
+    public static double optDouble(String json,String key){
+        try {
+            JSONObject object = new JSONObject(json);
+            return object.getDouble(key);
+        } catch (Exception e) {
+            LogUtils.e(TAG,"get "+key+" error!");
+        }
+        return 0.0d;
+    }
+
+    /**
+     * 说明：解析json
+     * @param json
+     * @param key
+     * @return
+     */
+    public static long optLong(String json,String key){
+        try {
+            JSONObject object = new JSONObject(json);
+            return object.getLong(key);
+        } catch (Exception e) {
+            LogUtils.e(TAG,"get "+key+" error!");
+        }
+        return 0L;
+    }
+
+    /**
+     * 说明：解析json
+     * @param json
+     * @param key
+     * @return
+     */
+    public static Object opt(String json,String key){
+        try {
+            JSONObject object = new JSONObject(json);
+            return object.get(key);
+        } catch (Exception e) {
+            LogUtils.e(TAG,"get "+key+" error!");
+        }
+        return null;
     }
 
     /**
