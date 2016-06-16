@@ -24,6 +24,7 @@ import okhttp3.Headers;
 public class BaseApplication extends Application{
 
     //gradlew install  gradlew bintrayUpload
+    private static BaseApplication mApplication;
 
     @Override
     public void onCreate() {
@@ -37,5 +38,11 @@ public class BaseApplication extends Application{
         builder.setTrustAll(true);
         builder.setTimeout(C.TIME_OUT);
         builder.build().init();
+
+        mApplication = this;
+    }
+
+    public static BaseApplication getApplication(){
+        return mApplication;
     }
 }

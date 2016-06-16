@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.fast.library.HttpUtils;
 import com.fast.library.http.callback.DownloadCallBack;
 import com.fast.library.sample.R;
+import com.fast.library.sample.http.ServerAPI;
 import com.fast.library.ui.ContentView;
 import com.fast.library.utils.SDCardUtils;
 import com.fast.library.utils.ToolUtils;
@@ -15,8 +16,11 @@ import com.fast.library.utils.ToolUtils;
 import java.io.File;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * 说明：HttpActivity
@@ -55,6 +59,13 @@ public class HttpActivity extends CommonActivity {
     public void onBtnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_baidu:
+                ServerAPI.getServerTime()
+                        .subscribe(new Action1<String>() {
+                            @Override
+                            public void call(String s) {
+                                tvInfo.setText(s);
+                            }
+                        });
                 break;
             case R.id.btn_download:
                 tvInfo.setText("");
