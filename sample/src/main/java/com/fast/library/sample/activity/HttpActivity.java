@@ -17,10 +17,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * 说明：HttpActivity
