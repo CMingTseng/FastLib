@@ -22,28 +22,9 @@ import com.fast.library.utils.LogUtils;
  */
 
 public abstract class SupportFragment extends Fragment implements OnClickListener{
-    public static final int WHICH_MSG = 0x100;
+
     protected View fragmentRootView;
     private int resId = 0;
-
-    /**
-     * 一个私有回调类，线程中初始化数据完成后的回调
-     */
-    private interface ThreadDataCallBack {
-        void onSuccess();
-    }
-
-    private static ThreadDataCallBack callback;
-
-    // 当线程中初始化的数据初始化完成后，调用回调方法
-    private static Handler threadHandle = new Handler() {
-        @Override
-        public void handleMessage(android.os.Message msg) {
-            if (msg.what == WHICH_MSG) {
-                callback.onSuccess();
-            }
-        }
-    };
 
     @Override
     public void onAttach(Context context) {
@@ -75,24 +56,7 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
      * 说明：在绑定数据之前调用
      * @param context
      */
-    protected abstract void setViewBefor(Context context);
-
-    /**
-     * 说明：在新的线程中初始化数据
-     */
-    protected void initDataFromThread() {
-        callback = new ThreadDataCallBack() {
-            @Override
-            public void onSuccess() {
-                onInitThreadFinish();
-            }
-        };
-    }
-
-    /**
-     * 说明：onInitThreadFinish()，则当数据初始化完成后将回调该方法。
-     */
-    protected void onInitThreadFinish() {}
+    protected void setViewBefor(Context context){}
 
     /**
      * 说明：点击事件
@@ -107,7 +71,9 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        AnnotateViewUtils.init(this);
+        if (!AnnotateViewUtils.init(this)){
+            throw new RuntimeException("please use @ContentView() in your Fragment!");
+        }
         fragmentRootView = inflaterView(inflater, container, savedInstanceState);
         return fragmentRootView;
     }
@@ -116,18 +82,6 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         onInit(savedInstanceState,fragmentRootView);
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                initDataFromThread();
-                threadHandle.sendEmptyMessage(WHICH_MSG);
-            }
-        }).start();
     }
 
     @SuppressWarnings("unchecked")
@@ -146,8 +100,8 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         LogUtils.v(this.getClass().getName(), "--->onCreate");
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -166,6 +120,12 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
     public void onStop() {
         LogUtils.v(this.getClass().getName(), "--->onStop");
         super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        LogUtils.v(this.getClass().getName(), "--->onDestroy");
+        super.onDestroy();
     }
 
     @Override

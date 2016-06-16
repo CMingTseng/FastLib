@@ -9,16 +9,20 @@ import android.view.View;
 
 import com.fast.library.Adapter.recyclerview.BaseRecyclerAdapter;
 import com.fast.library.sample.R;
+import com.fast.library.sample.adapter.MainAdapter;
 import com.fast.library.sample.contract.MainContract;
 import com.fast.library.sample.presenter.MainPresenterImpl;
 import com.fast.library.tools.BackExit;
 import com.fast.library.tools.BackTools;
+import com.fast.library.tools.RecyclerViewTools;
 import com.fast.library.ui.ContentView;
+import com.fast.library.utils.StatusBarUtils;
 import com.fast.mvp.loader.PresenterFactory;
 import com.fast.mvp.loader.PresenterLoader;
 
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends CommonActivity<MainContract.Presenter> implements BaseRecyclerAdapter.OnItemClickListener,MainContract.View {
@@ -28,19 +32,22 @@ public class MainActivity extends CommonActivity<MainContract.Presenter> impleme
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
 
-    @Override
-    public void onInit(Bundle bundle) {
-        super.onInit(bundle);
-        ButterKnife.bind(this);
-        //初始化LoaderManager
-        getSupportLoaderManager().initLoader(createLoaderID(),null,this);
-        setSupportActionBar(toolbar);
-    }
+    private MainAdapter mAdapter;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        getPresenter().onCreate(this,this);
+    public void onInitStart() {
+        StatusBarUtils.setTranslucent(this);
+        setSupportActionBar(toolbar);
+        getPresenter().attachView(this);
+
+        mAdapter = new MainAdapter(recyclerView,null);
+        RecyclerViewTools recyclerViewTools = new RecyclerViewTools(recyclerView);
+        recyclerViewTools.setHasFixedSize(true);
+        recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(this);
+
+        getPresenter().onStart();
     }
 
     @Override
@@ -68,25 +75,9 @@ public class MainActivity extends CommonActivity<MainContract.Presenter> impleme
                 showActivity(HttpActivity.class);
                 break;
             default:
-                String data = (String) ((BaseRecyclerAdapter)recyclerView.getAdapter()).getData().get(position);
-                shortToast(data);
+                shortToast(mAdapter.getData().get(position));
                 break;
         }
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
-    public void showError() {
-
     }
 
     @Override
@@ -100,12 +91,22 @@ public class MainActivity extends CommonActivity<MainContract.Presenter> impleme
     }
 
     @Override
-    public void setAdapter(BaseRecyclerAdapter<String> adapter) {
-        recyclerView.setAdapter(adapter);
+    public void refresh(List<String> data) {
+        mAdapter.refresh(data);
     }
 
     @Override
-    public RecyclerView getRecyclerView() {
-        return recyclerView;
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+        shortToast(msg);
     }
 }

@@ -14,10 +14,10 @@ import android.view.View;
  * 版本：verson 1.0
  */
 public interface I_Activity {
-    /*初始化数据*/
-    void onInit(Bundle bundle);
-    /*在线程中初始化数据*/
-    void onInitThread();
+    /*初始化*/
+    void onInitCreate(Bundle bundle);
+    /*初始化参数(onStart中调用)*/
+    void onInitStart();
     /*点击事件回调方法*/
     void clickView(View view, int id);
     /*获取数据*/

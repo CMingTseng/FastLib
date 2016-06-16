@@ -9,7 +9,7 @@ import android.view.View;
 import com.fast.library.http.HttpTaskKey;
 import com.fast.library.ui.AbstractActivity;
 import com.fast.library.ui.ToastUtil;
-import com.fast.mvp.presenter.IPresenter;
+import com.fast.mvp.presenter.MvpPresenter;
 
 /**
  * 说明：Activity基类
@@ -20,7 +20,7 @@ import com.fast.mvp.presenter.IPresenter;
  * <p/>
  * 版本：verson 1.0
  */
-public abstract class BaseActivity<Presenter extends IPresenter> extends AbstractActivity implements HttpTaskKey,LoaderManager.LoaderCallbacks<Presenter> {
+public abstract class BaseActivity<Presenter extends MvpPresenter> extends AbstractActivity implements HttpTaskKey,LoaderManager.LoaderCallbacks<Presenter> {
 
     private Presenter mPresenter;
 
@@ -53,9 +53,6 @@ public abstract class BaseActivity<Presenter extends IPresenter> extends Abstrac
     }
 
     /***************************************************************************************/
-    @Override
-    public void onInit(Bundle bundle) {
-    }
 
     @Override
     public void clickView(View v, int id) {
@@ -79,7 +76,6 @@ public abstract class BaseActivity<Presenter extends IPresenter> extends Abstrac
     public void onLoaderReset(Loader<Presenter> loader) {
         mPresenter = null;
     }
-
     /***************************************************************************************/
 
 }

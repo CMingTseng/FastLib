@@ -36,10 +36,7 @@ public class HttpActivity extends CommonActivity {
     String url = "http://60.8.151.207/m.wdjcdn.com/apk.wdjcdn.com/3/d5/88512dbfbc3a46c1e760201c73e4ad53.apk";
 
     @Override
-    public void onInit(Bundle bundle) {
-        super.onInit(bundle);
-        ButterKnife.bind(this);
-
+    public void onInitStart() {
         tvInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -27,7 +27,6 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
         AbsListView.OnScrollListener {
 
     protected List<T> mDatas;
-    protected final int mItemLayoutId;
     protected AbsListView mList;
     protected boolean isScrolling;
     protected Context mCxt;
@@ -35,13 +34,11 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
 
     private AbsListView.OnScrollListener listener;
 
-    public BaseListAdapter(AbsListView view, List<T> mDatas,
-                           int itemLayoutId) {
+    public BaseListAdapter(AbsListView view, List<T> mDatas) {
         if (mDatas == null) {
             mDatas = new ArrayList<T>(0);
         }
         this.mDatas = mDatas;
-        this.mItemLayoutId = itemLayoutId;
         this.mList = view;
         mCxt = view.getContext();
         mInflater = LayoutInflater.from(mCxt);
@@ -76,6 +73,8 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
         }
     }
 
+    public abstract int getItemLayoutId(int viewType);
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -92,7 +91,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements
 
     private AdapterHolder getViewHolder(int position, View convertView,
                                         ViewGroup parent) {
-        return AdapterHolder.get(convertView, parent, mItemLayoutId, position);
+        return AdapterHolder.get(convertView, parent, getItemLayoutId(getItemViewType(position)), position);
     }
 
     public abstract void convert(AdapterHolder holder, T item,

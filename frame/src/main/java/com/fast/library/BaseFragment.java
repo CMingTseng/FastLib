@@ -1,27 +1,29 @@
 package com.fast.library;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.fast.library.http.HttpTaskKey;
-import com.fast.library.ui.FrameFragment;
+import com.fast.library.ui.SupportFragment;
 import com.fast.library.ui.ToastUtil;
 
 /**
- * 说明：Fragment基类
+ * 说明：Fragment基类(V4)
  * <p/>
  * 作者：fanly
  * <p/>
- * 时间：2016/4/5 16:25
+ * 时间：2016/3/26 1:23
  * <p/>
  * 版本：verson 1.0
  */
-public abstract class BaseFragment extends FrameFragment implements HttpTaskKey {
+public abstract class BaseFragment extends SupportFragment implements HttpTaskKey {
 
-    private Activity mActivity;
+    private FragmentActivity mActivity;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -85,5 +87,18 @@ public abstract class BaseFragment extends FrameFragment implements HttpTaskKey 
         intent.putExtras(bundle);
         mActivity.startActivity(intent);
     }
+
+    /***************************************************************************************/
+
+    /***************************************************************************************/
+
+    public FragmentManager getSupportFragmentManager() {
+        if (mActivity != null){
+            return mActivity.getSupportFragmentManager();
+        }else {
+            return null;
+        }
+    }
+
     /***************************************************************************************/
 }

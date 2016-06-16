@@ -1,10 +1,8 @@
 package com.fast.library.sample.contract;
 
-import android.support.v7.widget.RecyclerView;
-
-import com.fast.library.Adapter.recyclerview.BaseRecyclerAdapter;
 import com.fast.mvp.BaseContract;
-import com.fast.mvp.presenter.IPresenter;
+
+import java.util.List;
 
 /**
  * 说明：MainContract
@@ -20,11 +18,10 @@ import com.fast.mvp.presenter.IPresenter;
 public interface MainContract extends BaseContract{
 
     interface View extends BaseView{
-        void setAdapter(BaseRecyclerAdapter<String> adapter);
-        RecyclerView getRecyclerView();
+        void refresh(List<String> data);
     }
 
-    interface Presenter extends IPresenter<View>{
+    abstract class Presenter extends BasePresenter<View> {
 
     }
 

@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.fast.library.BaseActivity;
-import com.fast.mvp.presenter.IPresenter;
+import com.fast.mvp.presenter.MvpPresenter;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 说明：CommonActivity
@@ -15,22 +18,22 @@ import com.fast.mvp.presenter.IPresenter;
  * <p/>
  * 版本：verson 1.0
  */
-public abstract class CommonActivity<Presenter extends IPresenter> extends BaseActivity<Presenter>{
+public abstract class CommonActivity<Presenter extends MvpPresenter> extends BaseActivity<Presenter>{
+
+    private Unbinder mUnbinder;
+
     @Override
-    public void onInit(Bundle bundle) {
-        addListener();
+    public void onInitCreate(Bundle bundle) {
+        mUnbinder = ButterKnife.bind(this);
+        //初始化LoaderManager
+        getSupportLoaderManager().initLoader(createLoaderID(),null,this);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        getPresenter().onStart();
-    }
-
-    public void addListener(){}
-
-    @Override
-    public void clickView(View v, int id) {
-
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mUnbinder != null){
+            mUnbinder.unbind();
+        }
     }
 }

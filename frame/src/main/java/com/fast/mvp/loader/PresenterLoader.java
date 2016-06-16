@@ -2,7 +2,7 @@ package com.fast.mvp.loader;
 
 import android.content.Context;
 import android.support.v4.content.Loader;
-import com.fast.mvp.presenter.IPresenter;
+import com.fast.mvp.presenter.MvpPresenter;
 
 /**
  * 说明：PresenterLoader
@@ -15,7 +15,7 @@ import com.fast.mvp.presenter.IPresenter;
  * <p/>
  * 版本：verson 1.0
  */
-public class PresenterLoader<T extends IPresenter> extends Loader {
+public class PresenterLoader<T extends MvpPresenter> extends Loader {
 
     private final PresenterFactory<T> factory;
     private T presenter;
@@ -53,7 +53,7 @@ public class PresenterLoader<T extends IPresenter> extends Loader {
 
     @Override
     protected void onReset() {
-        presenter.onDestroy();
+        presenter.detachView();
         presenter = null;
     }
 }

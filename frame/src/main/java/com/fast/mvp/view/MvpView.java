@@ -1,7 +1,7 @@
 package com.fast.mvp.view;
 
 /**
- * 说明：IView
+ * 说明：MvpView
  * <p/>
  * 作者：fanly
  * <p/>
@@ -11,5 +11,5 @@ package com.fast.mvp.view;
  * <p/>
  * 版本：verson 1.0
  */
-public interface IView {
+public interface MvpView {
 }

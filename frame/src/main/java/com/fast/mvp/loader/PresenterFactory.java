@@ -1,6 +1,6 @@
 package com.fast.mvp.loader;
 
-import com.fast.mvp.presenter.IPresenter;
+import com.fast.mvp.presenter.MvpPresenter;
 
 /**
  * 说明：PresenterFactory
@@ -13,6 +13,6 @@ import com.fast.mvp.presenter.IPresenter;
  * <p/>
  * 版本：verson 1.0
  */
-public interface PresenterFactory<T extends IPresenter> {
+public interface PresenterFactory<T extends MvpPresenter> {
     T create();
 }

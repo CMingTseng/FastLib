@@ -1,6 +1,6 @@
 package com.fast.library.sample.contract;
 
-import com.fast.mvp.view.IView;
+import com.fast.mvp.view.MvpView;
 
 /**
  * 说明：BaseView
@@ -13,11 +13,11 @@ import com.fast.mvp.view.IView;
  * <p/>
  * 版本：verson 1.0
  */
-public interface BaseView extends IView{
+public interface BaseView extends MvpView {
     //显示加载进度
-    void showProgress();
+    void showLoading();
     //隐藏加载进度
-    void hideProgress();
+    void hideLoading();
     //显示加载错误
-    void showError();
+    void showError(String msg);
 }

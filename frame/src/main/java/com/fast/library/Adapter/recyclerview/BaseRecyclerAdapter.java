@@ -25,7 +25,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     private OnItemLongClickListener mOnItemLongClickListener;
 
     public BaseRecyclerAdapter(RecyclerView recyclerView,List<T> data){
-        mData = data == null ? new ArrayList<T>() : data;
+        mData = data == null ? new ArrayList<T>(0) : data;
         this.mRecyclerView = recyclerView;
     }
 

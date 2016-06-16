@@ -61,28 +61,6 @@ public class AnnotateViewUtils {
         }
         return isBind;
     }
-    /**
-     * 说明：fragment绑定view
-     * @param fragment
-     */
-    private static boolean initContentView(FrameFragment fragment){
-        Class<? extends FrameFragment> clazz = fragment.getClass();
-        ContentView bindView = clazz.getAnnotation(ContentView.class);
-        boolean isBind = false;
-        if (bindView != null){
-            isBind = true;
-            int layoutId = bindView.value();
-            try {
-                Method method = clazz.getMethod("setRootViewResID",int.class);
-                method.setAccessible(true);
-                method.invoke(fragment,layoutId);
-            }catch (Exception e){
-                e.printStackTrace();
-                isBind = false;
-            }
-        }
-        return isBind;
-    }
 
     /**
      * @param currentClass
@@ -92,8 +70,6 @@ public class AnnotateViewUtils {
         if (currentClass instanceof Activity){
             return initContentView((Activity) currentClass);
         }else if (currentClass instanceof SupportFragment){
-            return initContentView((SupportFragment) currentClass);
-        }else if (currentClass instanceof FrameFragment){
             return initContentView((SupportFragment) currentClass);
         }else {
             throw new IllegalArgumentException(currentClass + " must be Activity or SupportFragment or FrameFragment!!!");

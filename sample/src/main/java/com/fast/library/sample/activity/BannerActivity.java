@@ -41,9 +41,7 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
     private String []urls;
 
     @Override
-    public void onInit(Bundle bundle) {
-        super.onInit(bundle);
-        ButterKnife.bind(this);
+    public void onInitStart() {
         urls = UIUtils.getStringArray(R.array.banner_three);
         Collections.addAll(data, urls);
         holder = new BannerHolderCreator<BannerImageHolder>() {
@@ -95,11 +93,6 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
     protected void onResume() {
         super.onResume();
         bannerView.start(2000);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override
