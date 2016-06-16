@@ -1,7 +1,5 @@
 package com.fast.library.sample.http;
 
-import android.content.Context;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +49,6 @@ public class RetrofitClient {
         private int mTimeout;
         //设置日志输出（调试模式）
         private boolean mDebug;
-        //设置信任所有证书（开发模式使用）
-        private boolean mTrustAll;
 
         public Builder(){
             this.mCertificateList = new ArrayList<>();
@@ -60,7 +56,6 @@ public class RetrofitClient {
             this.interceptorList = new ArrayList<>();
             this.mTimeout = 10000;
             this.mDebug = true;
-            this.mTrustAll = false;
         }
 
         public String baseUrl() {
@@ -153,17 +148,8 @@ public class RetrofitClient {
             return this;
         }
 
-        public boolean isTrustAll() {
-            return mTrustAll;
-        }
-
-        public Builder setTrustAll(boolean mTrustAll) {
-            this.mTrustAll = mTrustAll;
-            return this;
-        }
-
         public RetrofitClient build(){
-            return new RetrofitClient(this);
+            return new RetrofitClient(this).init();
         }
     }
 
@@ -179,7 +165,7 @@ public class RetrofitClient {
         return mRetrofitBuilder;
     }
 
-    public RetrofitClient init(){
+    private RetrofitClient init(){
         if (mRetrofitBuilder == null){
             mRetrofitBuilder = new Retrofit.Builder();
             if (mBuilder.getOkHttpClient() != null){

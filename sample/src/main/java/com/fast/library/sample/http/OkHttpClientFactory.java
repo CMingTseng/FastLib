@@ -20,6 +20,9 @@ public class OkHttpClientFactory {
 
     public static OkHttpClient create(RetrofitClient.Builder builder) {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+        if (builder == null){
+            return okHttpBuilder.build();
+        }
         //okhttp3 cookie设置
         if (builder.getCookieJar() != null) {
             okHttpBuilder.cookieJar(builder.getCookieJar());
@@ -41,14 +44,6 @@ public class OkHttpClientFactory {
         if (builder.getDispatcher() != null){
             okHttpBuilder.dispatcher(builder.getDispatcher());
         }
-        //设置证书
-        if (builder.getCertificateList() != null && !builder.getCertificateList().isEmpty()){
-            HttpsCerManager httpsCerManager = new HttpsCerManager(okHttpBuilder);
-            httpsCerManager.setCertificates(builder.getCertificateList());
-        }else if (builder.isTrustAll()){
-            HttpsCerManager httpsCerManager = new HttpsCerManager(okHttpBuilder);
-            httpsCerManager.setTrustAll();
-        }
         //设置请求时间
         okHttpBuilder.connectTimeout(builder.getTimeout(), TimeUnit.MILLISECONDS);
         okHttpBuilder.writeTimeout(builder.getTimeout(), TimeUnit.MILLISECONDS);
@@ -56,6 +51,11 @@ public class OkHttpClientFactory {
         //请求支持重定向
         okHttpBuilder.followRedirects(true);
         okHttpBuilder.followSslRedirects(true);
+        //设置证书
+        if (builder.getCertificateList() != null && !builder.getCertificateList().isEmpty()){
+            HttpsCerManager httpsCerManager = new HttpsCerManager(okHttpBuilder);
+            httpsCerManager.setCertificates(builder.getCertificateList());
+        }
         return okHttpBuilder.build();
     }
 

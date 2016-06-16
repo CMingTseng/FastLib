@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.fast.library.HttpUtils;
 import com.fast.library.http.callback.DownloadCallBack;
+import com.fast.library.http.callback.StringCallBack;
 import com.fast.library.sample.R;
 import com.fast.library.sample.http.ServerAPI;
 import com.fast.library.ui.ContentView;
@@ -38,13 +39,13 @@ public class HttpActivity extends CommonActivity {
 
     @Override
     public void onInitStart() {
-        tvInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HttpUtils.cancel(url);
-                tvInfo.setText("已经取消");
-            }
-        });
+//        tvInfo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                HttpUtils.cancel(url);
+//                tvInfo.setText("已经取消");
+//            }
+//        });
     }
 
     @Override
@@ -56,7 +57,18 @@ public class HttpActivity extends CommonActivity {
     public void onBtnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_baidu:
-                ServerAPI.getServerTime()
+//                HttpUtils.post("https://www.baidu.com", new StringCallBack() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        tvInfo.setText(result);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int errorCode, String msg) {
+//
+//                    }
+//                });
+                ServerAPI.getBaidu()
                         .subscribe(new Action1<String>() {
                             @Override
                             public void call(String s) {

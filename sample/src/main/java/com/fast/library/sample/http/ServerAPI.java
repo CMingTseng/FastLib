@@ -26,9 +26,7 @@ public class ServerAPI {
         if (api == null){
             api = new RetrofitClient.Builder().baseUrl(baseUrl)
                     .setTimeout(5000)
-//                    .setTrustAll(true)
                     .build()
-                    .init()
                     .retrofitBuilder()
                     .addConverterFactory(StringConverterFactroy.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -42,10 +40,18 @@ public class ServerAPI {
         //获取服务器时间
         @POST("TimeServlet")
         Observable<String> getServerTime();
+        @POST("https://www.baidu.com")
+        Observable<String> getBaidu();
     }
 
     public static Observable<String> getServerTime(){
         return getAPI().getServerTime()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<String> getBaidu(){
+        return getAPI().getBaidu()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
