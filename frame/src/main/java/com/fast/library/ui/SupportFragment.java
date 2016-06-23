@@ -39,7 +39,7 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
      * 说明：设置布局文件
      * @param resId
      */
-    protected final void setRootViewResID(int resId){
+    public final void setRootViewResID(int resId){
         this.resId = resId;
     }
 
@@ -72,7 +72,7 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (!AnnotateViewUtils.init(this)){
-            throw new RuntimeException("please use @ContentView() in your Fragment!");
+            LogUtils.e("AnnotateViewUtils.init error!");
         }
         fragmentRootView = inflaterView(inflater, container, savedInstanceState);
         return fragmentRootView;
@@ -130,6 +130,7 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
 
     @Override
     public void onDestroyView() {
+        fragmentRootView = null;
         LogUtils.v(this.getClass().getName(), "--->onDestroyView");
         super.onDestroyView();
     }

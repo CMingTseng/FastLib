@@ -54,6 +54,7 @@
         </activity>
         <activity android:name=".activity.BannerActivity"></activity>
         <activity android:name=".activity.HttpActivity"></activity>
+        <activity android:name=".activity.FragmentActivity"></activity>
     </application>
 
 </manifest>

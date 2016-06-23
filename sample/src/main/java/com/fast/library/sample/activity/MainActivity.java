@@ -74,6 +74,9 @@ public class MainActivity extends CommonActivity<MainContract.Presenter> impleme
             case 1:
                 showActivity(HttpActivity.class);
                 break;
+            case 2:
+                showActivity(FragmentActivity.class);
+                break;
             default:
                 shortToast(mAdapter.getData().get(position));
                 break;
