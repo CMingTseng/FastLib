@@ -3,12 +3,14 @@ package com.fast.library.view;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Property;
 import android.view.View;
@@ -125,6 +127,42 @@ public class CircleProgressView extends View{
         fBounds.right = w - mBorderWidth / 2f - .5f;
         fBounds.top = mBorderWidth / 2f + .5f;
         fBounds.bottom = h - mBorderWidth / 2f - .5f;
+    }
+
+    /**
+     * 说明：设置圈圈颜色
+     * @param colors
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    public void setCircleColos(int ...colors){
+        if (colors != null && colors.length > 0){
+            switch (colors.length){
+                case 1:
+                    mColors[0] = getResources().getColor(colors[0],null);
+                    mColors[1] = getResources().getColor(colors[0],null);
+                    mColors[2] = getResources().getColor(colors[0],null);
+                    mColors[3] = getResources().getColor(colors[0],null);
+                    break;
+                case 2:
+                    mColors[0] = getResources().getColor(colors[0],null);
+                    mColors[1] = getResources().getColor(colors[1],null);
+                    mColors[2] = getResources().getColor(colors[0],null);
+                    mColors[3] = getResources().getColor(colors[0],null);
+                    break;
+                case 3:
+                    mColors[0] = getResources().getColor(colors[0],null);
+                    mColors[1] = getResources().getColor(colors[1],null);
+                    mColors[2] = getResources().getColor(colors[2],null);
+                    mColors[3] = getResources().getColor(colors[0],null);
+                    break;
+                case 4:
+                    mColors[0] = getResources().getColor(colors[0],null);
+                    mColors[1] = getResources().getColor(colors[1],null);
+                    mColors[2] = getResources().getColor(colors[2],null);
+                    mColors[3] = getResources().getColor(colors[3],null);
+                    break;
+            }
+        }
     }
 
     private static int gradient(int color1, int color2, float p) {

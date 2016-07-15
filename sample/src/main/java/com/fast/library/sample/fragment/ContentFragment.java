@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.fast.library.sample.R;
 import com.fast.library.ui.ContentView;
+import com.fast.library.utils.LogUtils;
 import com.fast.library.view.BaseLazyFragment;
 
 import butterknife.BindView;
@@ -24,26 +25,33 @@ import butterknife.ButterKnife;
  */
 @ContentView(R.layout.fragment_content)
 public class ContentFragment extends BaseLazyFragment {
+
+    public final static String TAG = "ContentFragment";
+
     @BindView(R.id.tv)
     TextView tv;
 
     @Override
     protected void onInitCreate(Bundle savedInstanceState, View view) {
         ButterKnife.bind(this, view);
+        tv.setText("onInitCreate");
     }
 
     @Override
     protected void onFirstUserVisible() {
+        LogUtils.e(TAG,"onFirstUserVisible");
         tv.setText("onFirstUserVisible");
     }
 
     @Override
     protected void onUserVisible() {
+        LogUtils.e(TAG,"onUserVisible");
         tv.setText("onFirstUserVisible");
     }
 
     @Override
     protected void onUserInvisible() {
+        LogUtils.e(TAG,"onUserInvisible");
         tv.setText("onUserInvisible");
     }
 

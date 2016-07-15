@@ -1,10 +1,9 @@
 package com.fast.library.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-
 import com.fast.library.BaseFragment;
+import com.fast.library.utils.LogUtils;
 
 /**
  * 说明：懒加载Fragment
@@ -19,10 +18,14 @@ import com.fast.library.BaseFragment;
  */
 public abstract class BaseLazyFragment extends BaseFragment{
 
+    public final static String TAG = "BaseLazyFragment";
+
     private boolean isFirstResume = true;
     private boolean isFirstVisible = true;
     private boolean isFirstInvisible = true;
     private boolean isPrepared = false;
+
+    private int count = 1;
 
     @Override
     protected void onInit(Bundle savedInstanceState, View view) {
@@ -31,6 +34,8 @@ public abstract class BaseLazyFragment extends BaseFragment{
     }
 
     private synchronized void initPrepare(){
+        LogUtils.e(TAG,"initPrepare=="+count);
+        count++;
         if (isPrepared){
             onFirstUserVisible();
         }else {
@@ -61,6 +66,8 @@ public abstract class BaseLazyFragment extends BaseFragment{
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        LogUtils.e(TAG,"setUserVisibleHint=="+count);
+        count++;
         if (isVisibleToUser){
             if (isFirstVisible){
                 isFirstVisible = false;

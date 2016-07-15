@@ -23,7 +23,7 @@ import com.fast.library.ui.ToastUtil;
  */
 public abstract class BaseFragment extends SupportFragment implements HttpTaskKey {
 
-    private FragmentActivity mActivity;
+    public FragmentActivity mActivity;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -55,6 +55,8 @@ public abstract class BaseFragment extends SupportFragment implements HttpTaskKe
     }
 
     /***************************************************************************************/
+
+
 
     /***************************************************************************************/
 

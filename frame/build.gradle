@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.0.7"
+version = "2.0.1"
 
 android {
     compileSdkVersion 23
@@ -53,6 +53,8 @@ dependencies {
     //db数据库
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
+    //EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
 
 def siteUrl = 'https://github.com/FanlySff/FastLib'      // 项目的主页
@@ -98,6 +100,7 @@ task sourcesJar(type: Jar) {
 
 task javadoc(type: Javadoc) {
     options.encoding = "UTF-8"
+    options.charSet = "UTF-8"
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }

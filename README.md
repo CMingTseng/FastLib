@@ -1,12 +1,12 @@
 # FastLib
 
 代码积累-快速开发框架@FanlySff
-当前版本  [V1.0.7](https://github.com/FanlySff/FastLib)
+当前版本  [V2.0.1](https://github.com/FanlySff/FastLib)
 
 ###Gradle:
 
 ```groovy
-compile ('com.fast.library:frame:1.0.7'){
+compile ('com.fast.library:frame:2.0.1'){
         exclude group: 'glide-parent'
     }
     
@@ -91,6 +91,9 @@ StringHttpCallBack返回String字符串
 -添加MVP框架
 
 >[V1.0.7](https://github.com/FanlySff/FastLib)
+-修复BUG
+
+>[V2.0.1](https://github.com/FanlySff/FastLib)
 -修复BUG
 
 License

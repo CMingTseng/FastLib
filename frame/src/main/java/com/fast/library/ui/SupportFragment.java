@@ -2,13 +2,13 @@ package com.fast.library.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
 import com.fast.library.utils.LogUtils;
 
 /**
@@ -48,6 +48,11 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
     }
 
     /**
+     * 说明：获取数据
+     */
+    protected void getBundleData(Bundle bundle){}
+
+    /**
      * 说明：初始化数据
      */
     protected abstract void onInit(Bundle savedInstanceState,View view);
@@ -81,6 +86,9 @@ public abstract class SupportFragment extends Fragment implements OnClickListene
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if (getArguments() != null){
+            getBundleData(getArguments());
+        }
         onInit(savedInstanceState,fragmentRootView);
     }
 
