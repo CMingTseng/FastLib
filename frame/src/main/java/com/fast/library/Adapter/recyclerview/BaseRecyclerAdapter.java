@@ -54,9 +54,23 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        convert(holder,mData.get(position),position);
+        if (position >= 0 && position < mData.size()){
+            convert(holder,mData.get(position),position,getItemViewType(position));
+        }else {
+            convert(holder,null,position,getItemViewType(position));
+        }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    /**
+     * 根据条目类型获取资源文件
+     * @param viewType
+     * @return
+     */
     public abstract int getItemLayoutId(int viewType);
 
     @Override
@@ -70,8 +84,12 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
      * @param item
      * @param position
      */
-    public abstract void convert(RecyclerViewHolder holder,T item,int position);
+    public abstract void convert(RecyclerViewHolder holder,T item,int position,int viewType);
 
+    /**
+     * 设置空布局
+     * @param emptyView
+     */
     public void setEmptyView(View emptyView){
         mEmptyView = emptyView;
         updateEmptyStatus();
@@ -107,8 +125,18 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     public void add(int position,T item){
         if (item != null && position >=0 && position < mData.size()){
             mData.add(position, item);
-            notifyItemChanged(position);
-            updateEmptyStatus();
+            notifyItemInserted(position);
+        }
+    }
+
+    /**
+     * 说明：添加数据
+     * @param item
+     */
+    public void add(T item){
+        if (item != null){
+            mData.add(item);
+            notifyItemRangeChanged(mData.size()-1,1);
         }
     }
 
@@ -123,8 +151,31 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         }
         if (position >=0 && position < mData.size()){
             mData.addAll(position, data);
-            notifyDataSetChanged();
-            updateEmptyStatus();
+            notifyItemRangeChanged(position,data.size());
+        }
+    }
+
+    /**
+     * 说明：添加数据
+     * @param data
+     */
+    public void addAll(List<T> data){
+        if (data == null || data.isEmpty()){
+            return;
+        }
+        mData.addAll(data);
+        notifyItemRangeChanged(mData.size()-data.size()-1,data.size());
+    }
+
+    /**
+     * 说明：修改数据
+     * @param position
+     * @param item
+     */
+    public void changed(int position,T item){
+        if (checkPostion(position) && item != null){
+            mData.set(position,item);
+            notifyItemChanged(position);
         }
     }
 
@@ -133,11 +184,15 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
      * @param position
      */
     public void remove(int position){
-        if (position >= 0 && position < mData.size()){
+        if (checkPostion(position)){
             mData.remove(position);
-            notifyItemInserted(position);
+            notifyItemRemoved(position);
             updateEmptyStatus();
         }
+    }
+
+    private boolean checkPostion(int position){
+        return position >=0 && position < mData.size();
     }
 
 
