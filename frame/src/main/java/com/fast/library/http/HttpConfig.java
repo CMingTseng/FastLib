@@ -100,8 +100,8 @@ public class HttpConfig {
         if (mHttpConfig != null){
             return;
         }else {
-            this.mOkHttpClient = OkHttpFactory.create(mHttpConfig);
             this.mHttpConfig = this;
+            this.mOkHttpClient = OkHttpFactory.create(mHttpConfig);
         }
     }
 

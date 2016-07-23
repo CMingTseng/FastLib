@@ -50,6 +50,7 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
                 return new BannerImageHolder();
             }
         };
+        bannerView.setCanLoop(false);
         bannerView.setPages(holder, data);
         bannerView.setPoint(R.mipmap.home_banner_selected, R.mipmap.home_banner_normal);
         bannerView.setOnItemClickListener(this);
@@ -79,20 +80,20 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
                 Collections.addAll(data, urls);
                 break;
         }
-        if (data.size() > 1){
-            bannerView.setPointVisible(true);
-            bannerView.setCanLoop(true);
-        }else {
-            bannerView.setPointVisible(false);
-            bannerView.setCanLoop(false);
-        }
+//        if (data.size() > 1){
+//            bannerView.setPointVisible(true);
+//            bannerView.setCanLoop(true);
+//        }else {
+//            bannerView.setPointVisible(false);
+//            bannerView.setCanLoop(false);
+//        }
         bannerView.refresh(holder,data);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        bannerView.start(2000);
+//        bannerView.start(2000);
     }
 
     @Override

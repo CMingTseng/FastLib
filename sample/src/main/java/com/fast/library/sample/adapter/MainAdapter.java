@@ -29,12 +29,13 @@ public class MainAdapter extends BaseRecyclerAdapter<String>{
     }
 
     @Override
+    public void convert(RecyclerViewHolder holder, String item, int position, int viewType) {
+        holder.setText(R.id.tv_des,item);
+    }
+
+    @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
     }
 
-    @Override
-    public void convert(RecyclerViewHolder holder, String item, int position) {
-        holder.setText(R.id.tv_des,item);
-    }
 }
