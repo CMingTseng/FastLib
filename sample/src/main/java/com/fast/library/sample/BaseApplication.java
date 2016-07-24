@@ -35,10 +35,8 @@ public class BaseApplication extends Application{
         MyCrashHandler.getInstance().init();
         //网络请求配置
         HttpConfig.Builder builder = new HttpConfig.Builder();
-        builder.setTrustAll(true);
         builder.setTimeout(C.TIME_OUT);
         builder.build().init();
-
         mApplication = this;
     }
 

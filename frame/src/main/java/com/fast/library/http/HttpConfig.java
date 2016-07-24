@@ -79,7 +79,6 @@ public class HttpConfig {
         this.mTimeout = builder.mTimeout;
         this.mHostnameVerifier = builder.mHostnameVerifier;
         this.mDebug = builder.mDebug;
-        this.mTrustAll = builder.mTrustAll;
         this.networkInterceptorList = builder.networkInterceptorList;
         this.interceptorList = builder.interceptorList;
         this.retryConnectionFailure = builder.retryConnectionFailure;
@@ -133,8 +132,6 @@ public class HttpConfig {
         private int mTimeout;
         //设置日志输出（调试模式）
         private boolean mDebug;
-        //设置信任所有证书（开发模式使用）
-        private boolean mTrustAll;
 
         public Builder(){
             this.mCertificateList = new ArrayList<>();
@@ -142,7 +139,6 @@ public class HttpConfig {
             this.interceptorList = new ArrayList<>();
             this.mTimeout = Constant.Http.TIMEOUT;
             this.mDebug = FastFrame.isDebug;
-            this.mTrustAll = false;
             retryConnectionFailure = true;
         }
 
@@ -216,16 +212,6 @@ public class HttpConfig {
          */
         public Builder setDebug(boolean debug){
             this.mDebug = debug;
-            return this;
-        }
-
-        /**
-         * 说明：设置信任所有证书（开发模式使用）
-         * @param trust
-         * @return
-         */
-        public Builder setTrustAll(boolean trust){
-            this.mTrustAll = trust;
             return this;
         }
 

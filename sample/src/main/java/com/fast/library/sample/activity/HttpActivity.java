@@ -57,24 +57,24 @@ public class HttpActivity extends CommonActivity {
     public void onBtnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_baidu:
-//                HttpUtils.post("https://www.baidu.com", new StringCallBack() {
-//                    @Override
-//                    public void onSuccess(String result) {
-//                        tvInfo.setText(result);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(int errorCode, String msg) {
-//
-//                    }
-//                });
-                ServerAPI.getBaidu()
-                        .subscribe(new Action1<String>() {
-                            @Override
-                            public void call(String s) {
-                                tvInfo.setText(s);
-                            }
-                        });
+                HttpUtils.post("https://www.baidu.com", new StringCallBack() {
+                    @Override
+                    public void onSuccess(String result) {
+                        tvInfo.setText(result);
+                    }
+
+                    @Override
+                    public void onFailure(int errorCode, String msg) {
+
+                    }
+                });
+//                ServerAPI.getBaidu()
+//                        .subscribe(new Action1<String>() {
+//                            @Override
+//                            public void call(String s) {
+//                                tvInfo.setText(s);
+//                            }
+//                        });
                 break;
             case R.id.btn_download:
                 tvInfo.setText("");

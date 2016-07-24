@@ -1,5 +1,6 @@
 package com.fast.library.utils;
 
+import java.net.URLEncoder;
 import java.util.regex.Pattern;
 
 /**
@@ -18,10 +19,32 @@ public final class StringUtils {
     private final static String phoner = "1\\d{10}$";
 
     /**
+     * 说明：验证给定字符串不是空字符串
+     * @param input
+     * @return
+     */
+    public static boolean isNotEmpty(CharSequence input){
+        return !isEmpty(input);
+    }
+
+    /**
+     * 说明：验证一个对象是不是Null,当不是null返回true
+     * @param object
+     * @return
+     */
+    public static boolean isNotNull(Object object){
+        return !isNull(object);
+    }
+
+    public static boolean isNull(Object object){
+        return object == null;
+    }
+
+    /**
      * 说明：判断给定字符串是否空白串 空白串是指由空格、制表符、回车符、换行符组成的字符串 若输入字符串为null或空字符串，返回true
      */
     public static boolean isEmpty(CharSequence input) {
-        if (input == null || "".equals(input))
+        if (!isNotNull(input) || "".equals(input))
             return true;
 
         for (int i = 0; i < input.length(); i++) {
@@ -40,7 +63,7 @@ public final class StringUtils {
      */
     public static boolean isEmpty(CharSequence ...input) {
         boolean flag = true;
-        if (input != null){
+        if (isNotNull(input)){
             for (CharSequence c:input){
                 if (!isEmpty(c)){
                     flag = false;
@@ -175,6 +198,19 @@ public final class StringUtils {
      */
     public static String UUID(){
         return java.util.UUID.randomUUID().toString().replace("-", "");
+    }
+
+    /**
+     * 说明：对input进行URLEncoder编码
+     * @param input
+     * @return
+     */
+    public static String encode(String input){
+        String result = "";
+        if (isNotEmpty(input)){
+            result = URLEncoder.encode(input);
+        }
+        return result;
     }
 }
 
