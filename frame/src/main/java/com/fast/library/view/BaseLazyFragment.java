@@ -3,7 +3,6 @@ package com.fast.library.view;
 import android.os.Bundle;
 import android.view.View;
 import com.fast.library.BaseFragment;
-import com.fast.library.utils.LogUtils;
 
 /**
  * 说明：懒加载Fragment
@@ -18,14 +17,7 @@ import com.fast.library.utils.LogUtils;
  */
 public abstract class BaseLazyFragment extends BaseFragment{
 
-    public final static String TAG = "BaseLazyFragment";
-
-    private boolean isFirstResume = true;
-    private boolean isFirstVisible = true;
-    private boolean isFirstInvisible = true;
-    private boolean isPrepared = false;
-
-    private int count = 1;
+    private boolean isPrepared = false;//是否创建好视图
 
     @Override
     protected void onInit(Bundle savedInstanceState, View view) {
@@ -34,51 +26,18 @@ public abstract class BaseLazyFragment extends BaseFragment{
     }
 
     private synchronized void initPrepare(){
-        LogUtils.e(TAG,"initPrepare=="+count);
-        count++;
-        if (isPrepared){
-            onFirstUserVisible();
-        }else {
+        if (!isPrepared){
             isPrepared = true;
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (isFirstResume){
-            isFirstResume = false;
-            return;
-        }
-        if (getUserVisibleHint()){
-            onUserVisible();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (getUserVisibleHint()){
-            onUserInvisible();
+            onFirstUserVisible();
         }
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        LogUtils.e(TAG,"setUserVisibleHint=="+count);
-        count++;
-        if (isVisibleToUser){
-            if (isFirstVisible){
-                isFirstVisible = false;
-                initPrepare();
-            }else {
+        if (isPrepared){
+            if (isVisibleToUser){
                 onUserVisible();
-            }
-        }else {
-            if (isFirstInvisible){
-                isFirstInvisible = false;
-                onFirstUserVisible();
             }else {
                 onUserInvisible();
             }
