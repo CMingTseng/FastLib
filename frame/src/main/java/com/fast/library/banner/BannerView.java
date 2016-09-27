@@ -139,11 +139,9 @@ public class BannerView<T> extends LinearLayout {
      * @return
      */
     public BannerView setPages(BannerHolderCreator holderCreator,List<T> data){
-        if (mAdapter == null){
-            this.mDatas = data;
-            mAdapter = new BannerAdapter(holderCreator,mDatas);
-            mViewPager.setAdapter(mAdapter, canLoop);
-        }
+        this.mDatas = data;
+        mAdapter = new BannerAdapter(holderCreator,mDatas);
+        mViewPager.setAdapter(mAdapter, canLoop);
         return this;
     }
 

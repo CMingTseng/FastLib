@@ -7,3 +7,7 @@
 /build
 /captures
 /.idea/
+frame/libs/
+frame/src/main/res/drawable/
+sample/libs/
+sample/src/main/res/drawable/

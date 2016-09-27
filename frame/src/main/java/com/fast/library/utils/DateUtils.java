@@ -340,12 +340,12 @@ public final class DateUtils {
      * 说明：获取两个时间间隔（单位：秒）
      *
      * @param firstDate
-     *            第一个时间
+     *            第一个时间 08:00
      * @param secondDate
-     *            第一个时间
+     *            第二个时间 09:00
      * @param format
-     *            对应时间格式
-     * @return 返回时间间隔的秒数
+     *            对应时间格式 HH:mm
+     * @return 返回时间间隔的秒数 3600
      */
     public static final long getSecondSpace(String firstDate,
                                             String secondDate, String format) {

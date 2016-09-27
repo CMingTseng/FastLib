@@ -9,6 +9,7 @@ import com.fast.library.banner.holder.BannerHolderCreator;
 import com.fast.library.banner.listener.OnItemClickListener;
 import com.fast.library.sample.R;
 import com.fast.library.sample.banner.BannerImageHolder;
+import com.fast.library.ui.ActivityStack;
 import com.fast.library.ui.ContentView;
 import com.fast.library.ui.ToastUtil;
 import com.fast.library.utils.UIUtils;
@@ -54,6 +55,8 @@ public class BannerActivity extends CommonActivity implements OnItemClickListene
         bannerView.setPages(holder, data);
         bannerView.setPoint(R.mipmap.home_banner_selected, R.mipmap.home_banner_normal);
         bannerView.setOnItemClickListener(this);
+
+        ActivityStack.create().finishActivity(MainActivity.class);
     }
 
     @Override

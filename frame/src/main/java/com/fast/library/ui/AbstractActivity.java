@@ -48,14 +48,9 @@ public abstract class AbstractActivity extends FrameActivity{
 
     @Override
     protected void onDestroy() {
-        LogUtils.v(this.getClass().getName(), "-->onDestroy");
         super.onDestroy();
-    }
-
-    @Override
-    public void finish() {
+        LogUtils.v(this.getClass().getName(), "-->onDestroy");
         ActivityStack.create().finishActivity(this);
-        super.finish();
     }
 
     @Override

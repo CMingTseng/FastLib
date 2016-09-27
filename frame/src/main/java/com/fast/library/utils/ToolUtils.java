@@ -167,35 +167,6 @@ public final class ToolUtils {
     }
 
     /**
-     * 说明：强制隐藏软键盘
-     */
-    public static void hiddenSoftInput(EditText editText) {
-        if (editText != null) {
-            InputMethodManager inputManager = (InputMethodManager) editText
-                    .getContext()
-                    .getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputManager.isActive()) {
-                inputManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-            }
-        }
-    }
-
-    /**
-     * 说明：强制显示软键盘
-     *
-     * @param et
-     */
-    public static void showSoftInput(EditText et) {
-        if (et != null) {
-            et.requestFocus();
-            InputMethodManager inputManager = (InputMethodManager) et
-                    .getContext()
-                    .getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.showSoftInput(et, InputMethodManager.SHOW_FORCED);
-        }
-    }
-
-    /**
      * 说明：拨打电话号码
      *
      * @param number 电话号码

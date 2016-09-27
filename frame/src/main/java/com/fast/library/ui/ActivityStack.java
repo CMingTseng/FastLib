@@ -2,6 +2,7 @@ package com.fast.library.ui;
 
 import android.app.Activity;
 
+import java.lang.ref.WeakReference;
 import java.util.Stack;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Stack;
 
 public class ActivityStack {
 
-    private static Stack<I_Activity> activities;
+    private static Stack<WeakReference<Activity>> activities;
     private static final ActivityStack instance = new ActivityStack();
 
     private ActivityStack(){}
@@ -41,11 +42,11 @@ public class ActivityStack {
      * 说明：将activity添加到栈中
      * @param activity
      */
-    public void addActivity(I_Activity activity){
+    public void addActivity(Activity activity){
         if (activities == null) {
-            activities = new Stack<I_Activity>();
+            activities = new Stack<WeakReference<Activity>>();
         }
-        activities.add(activity);
+        activities.add(new WeakReference<Activity>(activity));
     }
 
     /**
@@ -53,11 +54,11 @@ public class ActivityStack {
      * @return
      */
     public Activity topActivity(){
-        if (activities == null || activities.isEmpty()) {
+        if (activities == null || activities.isEmpty() || activities.lastElement().get() == null) {
             throw new NullPointerException(
                     "Activity stack is Null,your Activity must extend FlyActivity");
         }
-        return (Activity) activities.lastElement();
+        return activities.lastElement().get();
     }
 
     /**
@@ -66,31 +67,26 @@ public class ActivityStack {
      * @return
      */
     public Activity findActivity(Class<?> cls){
-        I_Activity activity = null;
-        for (I_Activity aty : activities) {
-            if (aty.getClass().equals(cls)) {
-                activity = aty;
+        Activity activity = null;
+        for (WeakReference<Activity> aty : activities) {
+            if (aty.get().getClass().equals(cls)) {
+                activity = aty.get();
                 break;
             }
         }
         return (Activity) activity;
     }
 
-    public void finishActivity(){
-        if (activities != null && !activities.isEmpty()) {
-            I_Activity activity = activities.lastElement();
-            finishActivity((I_Activity)activity);
-        }
-    }
-
     /**
      * 说明：结束指定activity
      * @param activity
      */
-    public void finishActivity(I_Activity activity){
+    public void finishActivity(Activity activity){
         if (activity != null) {
             activities.remove(activity);
-            activity = null;
+            if (!activity.isFinishing()){
+                activity.finish();
+            }
         }
     }
 
@@ -100,9 +96,9 @@ public class ActivityStack {
      */
     public void finishActivity(Class<?> cls){
         if (activities != null && !activities.isEmpty()) {
-            for (I_Activity aty : activities) {
-                if (aty.getClass().equals(cls)) {
-                    finishActivity((I_Activity)aty);
+            for (WeakReference<Activity> aty : activities) {
+                if (aty.get().getClass().equals(cls)) {
+                    finishActivity(aty.get());
                 }
             }
         }
@@ -114,9 +110,9 @@ public class ActivityStack {
      */
     public void finishOtherActivity(Class<?> cls){
         if (activities != null && !activities.isEmpty()) {
-            for (I_Activity aty : activities) {
-                if (!aty.getClass().equals(cls)) {
-                    finishActivity((I_Activity)aty);
+            for (WeakReference<Activity> aty : activities) {
+                if (!aty.get().getClass().equals(cls)) {
+                    finishActivity(aty.get());
                 }
             }
         }
@@ -129,7 +125,7 @@ public class ActivityStack {
         if (activities != null && !activities.isEmpty()) {
             for(int i = 0,size = activities.size();i<size;i++){
                 if (null != activities.get(i)) {
-                    ((Activity)activities.get(i)).finish();
+                    finishActivity(activities.get(i).get());
                 }
             }
             activities.clear();
@@ -142,7 +138,6 @@ public class ActivityStack {
     public void AppExit(){
         try {
             finishAllActivity();
-            Runtime.getRuntime().exit(0);
         } catch (Exception e) {
             e.printStackTrace();
             Runtime.getRuntime().exit(-1);
