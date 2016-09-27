@@ -62,6 +62,15 @@ public class ActivityStack {
     }
 
     /**
+     * 说明：检查是否存在该Activity
+     * @param cls
+     * @return
+     */
+    public boolean isCreateActivity(Class<?> cls){
+        return findActivity(cls) != null;
+    }
+
+    /**
      * 说明：查找activity,没有则返回null
      * @param cls
      * @return
@@ -74,7 +83,7 @@ public class ActivityStack {
                 break;
             }
         }
-        return (Activity) activity;
+        return activity;
     }
 
     /**
